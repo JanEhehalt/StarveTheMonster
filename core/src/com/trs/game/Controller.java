@@ -46,7 +46,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 		wallTimer.scheduleTask(new Timer.Task() {
 			@Override
 			public void run() {
-				// TODO: Implement timertask
+				model.timerStep();
 			}
 		}, 0, 1f);
 		font = new BitmapFont();
@@ -88,6 +88,14 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 	public void dispose () {
 		batch.dispose();
 		renderer.dispose();
+	}
+
+	public void timerStart(){
+		wallTimer.start();
+	}
+
+	public void timerStop(){
+		wallTimer.stop();
 	}
 
 	@Override
