@@ -34,6 +34,8 @@ public class Monster {
     }
 
     public void move(){
+        checkTarget();
+
         this.xPos += this.movementX;
         this.yPos += this.movementY;
     }
@@ -45,7 +47,8 @@ public class Monster {
     }
 
     private void generateNewTarget(){
-        // TODO: generate new target coordinates
+        xPosTarget = (int) (Math.random() * 1400) + 100;
+        yPosTarget = (int) (Math.random() * 700) + 100;
 
         calculateMovement();
     }
