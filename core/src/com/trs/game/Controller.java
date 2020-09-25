@@ -6,11 +6,17 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.PolygonRegion;
+import com.badlogic.gdx.graphics.g2d.PolygonSprite;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Timer;
 import com.trs.game.model.Model;
@@ -35,6 +41,8 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 	Model model;
 	View view;
 	BitmapFont font;
+	Texture textureSolid;
+	Pixmap pix;
 
 	Screen screen;
 	
@@ -68,6 +76,12 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 		font.setColor(Color.BLACK);
 		//
 
+		//POLYGON STUFF
+		pix = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+		pix.setColor(Color.BLACK); // DE is red, AD is green and BE is blue.
+		pix.fill();
+		textureSolid = new Texture(pix);
+
 		screen = new MainMenuScreen(GAME_WORLD_WIDTH,GAME_WORLD_HEIGHT);
 
 		Gdx.input.setInputProcessor(this);
@@ -82,14 +96,28 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 
 		// MODEL DRAWING
 		if(screen.getId() == 1){
-			renderer.begin(ShapeRenderer.ShapeType.Filled);
+			// DRAW WALLS
 			for(Wall wall : model.getWalls()){
-				renderer.rect(wall.getRect().getX(), wall.getRect().getY(),0,0, wall.getRect().getWidth(), wall.getRect().getHeight(),1,1, (float)wall.getRotation());
+				PolygonSprite poly;
+				PolygonRegion polyReg = new PolygonRegion(new TextureRegion(textureSolid),
+						wall.getPolygon().getVertices(), new short[] {
+						0, 1, 2,         // Two triangles using vertex indices.
+						0, 2, 3          // Take care of the counter-clockwise direction.
+				});
+				poly = new PolygonSprite(polyReg);
+				polygonSpriteBatch.begin();
+				poly.draw(polygonSpriteBatch);
+				polygonSpriteBatch.end();
 			}
+
+			// DRAW PROJECTILES
+			renderer.begin(ShapeRenderer.ShapeType.Filled);
 			for(Projectile projectile : model.getProjectiles()){
 				renderer.circle(projectile.getxPos(), projectile.getyPos(), projectile.getRadius());
 			}
 			renderer.end();
+
+			// DRAW MONSTER
 			model.getMonster().drawMonster(renderer,polygonSpriteBatch);
 		}
 	}
