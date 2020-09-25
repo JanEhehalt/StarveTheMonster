@@ -10,8 +10,10 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Timer;
 import com.trs.game.model.Model;
+import com.trs.game.model.Wall;
 import com.trs.game.view.View;
 import com.trs.game.view.Button;
 import com.trs.game.view.Screen;
@@ -70,6 +72,16 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		screen.render(batch,renderer,font);
+
+		// MODEL DRAWING
+		if(screen.getId() == 1){
+			renderer.begin(ShapeRenderer.ShapeType.Filled);
+			for(Wall wall : model.getWalls()){
+				renderer.rect(wall.getRect().getX(), wall.getRect().getY(),0,0, wall.getRect().getWidth(), wall.getRect().getHeight(),1,1, (float)wall.getRotation());
+			}
+			renderer.end();
+			model.getMonster().drawMonster(renderer);
+		}
 	}
 	
 	@Override

@@ -1,5 +1,7 @@
 package com.trs.game.model;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.trs.game.StaticMath;
 
 public class Monster {
@@ -16,6 +18,19 @@ public class Monster {
     public Monster(int xPos, int yPos){
         this.xPos = xPos;
         this.yPos = yPos;
+
+    }
+
+    public void drawMonster(ShapeRenderer renderer){
+        if(renderer.isDrawing()) renderer.end();
+        renderer.begin(ShapeRenderer.ShapeType.Filled);
+        renderer.setColor(Color.BLACK);
+        renderer.rect(xPos, yPos, 50,50);
+        renderer.setColor(Color.RED);
+        renderer.rect(xPos + 10, yPos + 30, 5, 10);
+        renderer.rect(xPos + 35, yPos + 30, 5, 10);
+        renderer.setColor(Color.WHITE);
+        renderer.rect(xPos + 10, yPos + 10, 30, 10);
     }
 
     public void move(){

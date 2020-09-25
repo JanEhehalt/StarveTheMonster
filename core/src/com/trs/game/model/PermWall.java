@@ -32,4 +32,5 @@ public class PermWall implements Wall {
     public void setRect(Rectangle rect) {
         this.rect = rect;
     }
+
 }
