@@ -20,10 +20,10 @@ public class Model {
     }
 
     public void timerStep(){
-        monster.move();
+        monster.move(walls);
 
         for(Projectile projectile : projectiles){
-            projectile.move();
+            projectile.move(walls);
         }
     }
 

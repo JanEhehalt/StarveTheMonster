@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.trs.game.StaticMath;
 
+import java.util.ArrayList;
+
 public class Monster {
 
     private final int SPEED = 3;
@@ -42,7 +44,7 @@ public class Monster {
         renderer.end();
     }
 
-    public void move(){
+    public void move(ArrayList<Wall> walls){
         checkTarget();
 
         this.xPos += this.movementX;
