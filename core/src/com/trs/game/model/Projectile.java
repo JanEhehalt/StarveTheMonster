@@ -39,7 +39,7 @@ public class Projectile {
 
     private void checkCollision(ArrayList<Wall> walls){
         for(Wall wall : walls){
-            if(Intersector.overlaps(circle, wall.getRect())){
+            if(/*Intersector.overlaps(circle, wall.getPolygon())*/ false){
 
                 circle.x -= movementX;
                 circle.y -= movementY;

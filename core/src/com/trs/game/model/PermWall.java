@@ -1,15 +1,15 @@
 package com.trs.game.model;
 
-import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Polygon;
 
 public class PermWall implements Wall {
 
     private double rotation;
-    private Rectangle rect;
+    private Polygon polygon;
 
-    public PermWall(double rotation, Rectangle rect){
+    public PermWall(double rotation, Polygon polygon){
         this.rotation = rotation;
-        this.rect = rect;
+        this.polygon = polygon;
     }
 
     @Override
@@ -25,12 +25,12 @@ public class PermWall implements Wall {
         this.rotation = rotation;
     }
 
-    public Rectangle getRect() {
-        return rect;
+    public Polygon getPolygon() {
+        return polygon;
     }
 
-    public void setRect(Rectangle rect) {
-        this.rect = rect;
+    public void setPolygon(Polygon polygon) {
+        this.polygon = polygon;
     }
 
 }
