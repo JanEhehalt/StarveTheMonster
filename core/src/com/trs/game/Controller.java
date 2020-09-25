@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Timer;
 import com.trs.game.model.Model;
+import com.trs.game.model.Projectile;
 import com.trs.game.model.Wall;
 import com.trs.game.view.View;
 import com.trs.game.view.Button;
@@ -79,7 +80,9 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 			for(Wall wall : model.getWalls()){
 				renderer.rect(wall.getRect().getX(), wall.getRect().getY(),0,0, wall.getRect().getWidth(), wall.getRect().getHeight(),1,1, (float)wall.getRotation());
 			}
-			
+			for(Projectile projectile : model.getProjectiles()){
+				renderer.circle(projectile.getxPos(),projectile.getyPos(),5);
+			}
 			renderer.end();
 			model.getMonster().drawMonster(renderer);
 		}

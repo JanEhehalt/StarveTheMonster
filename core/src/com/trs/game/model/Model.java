@@ -33,4 +33,8 @@ public class Model {
     public Monster getMonster(){
         return monster;
     }
+
+    public ArrayList<Projectile> getProjectiles() {
+        return projectiles;
+    }
 }

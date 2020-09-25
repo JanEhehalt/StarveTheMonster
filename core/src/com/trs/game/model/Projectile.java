@@ -30,4 +30,12 @@ public class Projectile {
         this.xPos += this.movementX;
         this.yPos += this.movementY;
     }
+
+    public int getxPos() {
+        return xPos;
+    }
+
+    public int getyPos() {
+        return yPos;
+    }
 }
