@@ -119,9 +119,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		if(screen.getId() == 0) screen = new GameScreen(GAME_WORLD_WIDTH, GAME_WORLD_HEIGHT);
-		else if(screen.getId() == 1) screen = new EndScreen(GAME_WORLD_WIDTH, GAME_WORLD_HEIGHT);
-		else if(screen.getId() == 2) screen = new MainMenuScreen(GAME_WORLD_WIDTH, GAME_WORLD_HEIGHT);
+		ManageButtonEvent(screen.touchDown(screenX,GAME_WORLD_HEIGHT-screenY));
 		return true;
 	}
 
@@ -143,5 +141,19 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 	@Override
 	public boolean scrolled(int amount) {
 		return false;
+	}
+
+	public void ManageButtonEvent(int keycode){
+		switch(keycode){
+			case 0: //GOTO MAINMENU
+				screen = new MainMenuScreen(GAME_WORLD_WIDTH,GAME_WORLD_HEIGHT);
+				break;
+			case 1: //GOTO GAMESCREEN
+				screen = new GameScreen(GAME_WORLD_WIDTH,GAME_WORLD_HEIGHT);
+				break;
+			case 2: //GOTO ENDSCREEN
+				screen = new EndScreen(GAME_WORLD_WIDTH,GAME_WORLD_HEIGHT);
+				break;
+		}
 	}
 }
