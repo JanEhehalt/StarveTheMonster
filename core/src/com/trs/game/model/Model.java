@@ -16,6 +16,7 @@ public class Model {
         walls.add(new PermWall(20,new Rectangle(250,250,50,25)));
 
         projectiles = new ArrayList<>();
+        projectiles.add(new Projectile(200, 200, 1000, 600));
     }
 
     public void timerStep(){
