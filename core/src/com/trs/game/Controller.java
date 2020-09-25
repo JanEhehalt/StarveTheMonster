@@ -127,7 +127,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 			renderer.end();
 
 			// DRAW MONSTER
-			model.getMonster().drawMonster(renderer,polygonSpriteBatch);
+			//model.getMonster().drawMonster(renderer,polygonSpriteBatch);
 		}
 	}
 	

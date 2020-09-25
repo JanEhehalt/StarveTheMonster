@@ -1,5 +1,6 @@
 package com.trs.game.model;
 
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Polygon;
 import com.trs.game.StaticMath;
 
@@ -7,7 +8,7 @@ import java.util.ArrayList;
 
 public class Projectile {
 
-    private final int SPEED = 3;
+    private final double SPEED = 3;
 
     private double movementX;
     private double movementY;
@@ -46,7 +47,7 @@ public class Projectile {
 
     private void checkCollision(ArrayList<Wall> walls){
         for(Wall wall : walls){
-            if(/*Intersector.overlaps(circle, wall.getPolygon())*/ false){
+            if(Intersector.overlapConvexPolygons(polygon, wall.getPolygon())){
 
                 setxPos((int) (getxPos() - this.movementX));
                 setyPos((int) (getyPos() - this.movementY));
@@ -78,17 +79,25 @@ public class Projectile {
     }
 
     public void setxPos(int xPos){
-        polygon.getVertices()[0] = xPos;
-        polygon.getVertices()[2] = xPos + 5;
-        polygon.getVertices()[4] = xPos + 5;
-        polygon.getVertices()[6] = xPos;
+        float[] positions = polygon.getVertices();
+
+        positions[0] = xPos;
+        positions[2] = xPos + 5;
+        positions[4] = xPos + 5;
+        positions[6] = xPos;
+
+        polygon.setVertices(positions);
     }
 
     public void setyPos(int yPos){
-        polygon.getVertices()[1] = yPos;
-        polygon.getVertices()[3] = yPos;
-        polygon.getVertices()[5] = yPos + 5;
-        polygon.getVertices()[7] = yPos + 5;
+        float[] positions = polygon.getVertices();
+
+        positions[1] = yPos;
+        positions[3] = yPos;
+        positions[5] = yPos + 5;
+        positions[7] = yPos + 5;
+
+        polygon.setVertices(positions);
     }
 
     public int getRadius(){
