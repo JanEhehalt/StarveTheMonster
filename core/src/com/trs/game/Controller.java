@@ -7,6 +7,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -29,6 +30,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 
 	SpriteBatch batch;
 	ShapeRenderer renderer;
+	PolygonSpriteBatch polygonSpriteBatch;
 	Timer wallTimer;
 	Model model;
 	View view;
@@ -40,6 +42,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 	public void create () {
 		batch = new SpriteBatch();
 		renderer = new ShapeRenderer();
+		polygonSpriteBatch = new PolygonSpriteBatch();
 		model = new Model();
 		view = new View();
 
@@ -47,6 +50,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 		wallTimer.scheduleTask(new Timer.Task() {
 			@Override
 			public void run() {
+				screen.timer();
 				if(screen.getId() == 1) {
 					model.timerStep();
 				}
@@ -86,7 +90,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 				renderer.circle(projectile.getxPos(), projectile.getyPos(), projectile.getRadius());
 			}
 			renderer.end();
-			model.getMonster().drawMonster(renderer);
+			model.getMonster().drawMonster(renderer,polygonSpriteBatch);
 		}
 	}
 	
