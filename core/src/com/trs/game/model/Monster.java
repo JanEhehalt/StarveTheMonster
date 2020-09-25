@@ -12,6 +12,8 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Polygon;
 import com.trs.game.StaticMath;
 
+import java.util.ArrayList;
+
 public class Monster {
 
     private final int SPEED = 5;
@@ -87,7 +89,7 @@ public class Monster {
 
     }
 
-    public void move(){
+    public void move(ArrayList<Wall> walls){
         checkTarget();
 
         //this.xPos += this.movementX;
