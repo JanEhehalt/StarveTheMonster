@@ -7,7 +7,7 @@ public class View {
     Rectangle r;
     Polygon p;
 
-    View(){
+    public View(){
 
     }
 }

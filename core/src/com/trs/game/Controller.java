@@ -7,15 +7,31 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.utils.Timer;
+import com.trs.game.model.Model;
+import com.trs.game.view.View;
 
 public class Controller extends ApplicationAdapter {
 	SpriteBatch batch;
 	ShapeRenderer renderer;
+	Timer wallTimer;
+	Model model;
+	View view;
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		renderer = new ShapeRenderer();
+		model = new Model();
+		view = new View();
+
+		wallTimer = new Timer();
+		wallTimer.scheduleTask(new Timer.Task() {
+			@Override
+			public void run() {
+				// TODO: Implement timertask
+			}
+		}, 0, 1f);
 	}
 
 	@Override
