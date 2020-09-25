@@ -24,13 +24,22 @@ public class Monster {
     public void drawMonster(ShapeRenderer renderer){
         if(renderer.isDrawing()) renderer.end();
         renderer.begin(ShapeRenderer.ShapeType.Filled);
+        //BODY
         renderer.setColor(Color.BLACK);
         renderer.rect(xPos, yPos, 50,50);
+        //EYES
         renderer.setColor(Color.RED);
         renderer.rect(xPos + 10, yPos + 30, 5, 10);
         renderer.rect(xPos + 35, yPos + 30, 5, 10);
+        //MOUTH
         renderer.setColor(Color.WHITE);
         renderer.rect(xPos + 10, yPos + 10, 30, 10);
+        //TEETH
+        renderer.setColor(Color.RED);
+        renderer.triangle(xPos+15,yPos+20,xPos+23,yPos+20,xPos+19,yPos+13);
+        renderer.triangle(xPos+27,yPos+20,xPos+35,yPos+20,xPos+31,yPos+13);
+
+        renderer.end();
     }
 
     public void move(){

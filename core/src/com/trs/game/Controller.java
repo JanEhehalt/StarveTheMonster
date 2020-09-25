@@ -79,6 +79,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 			for(Wall wall : model.getWalls()){
 				renderer.rect(wall.getRect().getX(), wall.getRect().getY(),0,0, wall.getRect().getWidth(), wall.getRect().getHeight(),1,1, (float)wall.getRotation());
 			}
+			
 			renderer.end();
 			model.getMonster().drawMonster(renderer);
 		}
