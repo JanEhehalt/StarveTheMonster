@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 
 public class Button {
@@ -52,6 +53,10 @@ public class Button {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Rectangle getRect(){
+        return new Rectangle(xPos,yPos,width,height);
     }
 
     public float getTextWidth(BitmapFont font, String text){
