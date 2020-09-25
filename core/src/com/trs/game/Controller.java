@@ -113,7 +113,16 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 			// DRAW PROJECTILES
 			renderer.begin(ShapeRenderer.ShapeType.Filled);
 			for(Projectile projectile : model.getProjectiles()){
-				renderer.circle(projectile.getxPos(), projectile.getyPos(), projectile.getRadius());
+				PolygonSprite poly;
+				PolygonRegion polyReg = new PolygonRegion(new TextureRegion(textureSolid),
+						projectile.getPolygon().getVertices(), new short[] {
+						0, 1, 2,         // Two triangles using vertex indices.
+						0, 2, 3          // Take care of the counter-clockwise direction.
+				});
+				poly = new PolygonSprite(polyReg);
+				polygonSpriteBatch.begin();
+				poly.draw(polygonSpriteBatch);
+				polygonSpriteBatch.end();
 			}
 			renderer.end();
 

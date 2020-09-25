@@ -33,7 +33,7 @@ public class Monster {
 
     public void drawMonster(ShapeRenderer renderer, PolygonSpriteBatch polygonSpriteBatch){
         if(renderer.isDrawing()) renderer.end();
-        renderer.begin(ShapeRenderer.ShapeType.Line);
+        renderer.begin(ShapeRenderer.ShapeType.Filled);
         //BODY
         renderer.setColor(Color.BLACK);
         renderer.rect(xPos, yPos, 50,50);
@@ -62,44 +62,19 @@ public class Monster {
 
         renderer.end();
 
-
-        /* POLYGON LOGIC (DRAWING)
-        PolygonSprite poly;
-        Texture textureSolid;
-        // Creating the color filling (but textures would work the same way)
-        Pixmap pix = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
-        pix.setColor(Color.BLACK); // DE is red, AD is green and BE is blue.
-        pix.fill();
-        textureSolid = new Texture(pix);
-        PolygonRegion polyReg = new PolygonRegion(new TextureRegion(textureSolid),
-                new float[] {      // Four vertices
-                        200, 200,               // Vertex 0         3--2
-                        300, 200,               // Vertex 1         | /|
-                        400, 500,               // Vertex 2         |/ |
-                        300, 500                // Vertex 3         0--1
-                }, new short[] {
-                0, 1, 2,         // Two triangles using vertex indices.
-                0, 2, 3          // Take care of the counter-clockwise direction.
-        });
-        poly = new PolygonSprite(polyReg);
-        polygonSpriteBatch.begin();
-        poly.draw(polygonSpriteBatch);
-        polygonSpriteBatch.end();
-        */
-
     }
 
     public void move(ArrayList<Wall> walls){
         checkTarget();
 
-        //this.xPos += this.movementX;
-        //this.yPos += this.movementY;
+        this.xPos += this.movementX;
+        this.yPos += this.movementY;
     }
 
     private void checkTarget(){
-        //if(this.xPos == this.xPosTarget && this.yPos == this.yPosTarget){
-        //    this.generateNewTarget();
-        //}
+        if(this.xPos == this.xPosTarget && this.yPos == this.yPosTarget){
+            this.generateNewTarget();
+        }
         if(Math.random() >= 0.9){
             this.generateNewTarget();
         }
