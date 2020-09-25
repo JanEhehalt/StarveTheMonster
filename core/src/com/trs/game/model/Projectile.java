@@ -1,12 +1,8 @@
 package com.trs.game.model;
 
-import com.badlogic.gdx.math.Circle;
-import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Polygon;
-import com.badlogic.gdx.math.Rectangle;
 import com.trs.game.StaticMath;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Projectile {
@@ -16,13 +12,24 @@ public class Projectile {
     private double movementX;
     private double movementY;
 
-    private Circle circle;
+    private Polygon polygon;
 
     public Projectile(int xPos, int yPos, int xPosMonster, int yPosMonster){
-        this.circle = new Circle(xPos, yPos, 5);
+        float[] positions = new float[8];
+        int length = 5;
+        positions[0] = xPos;
+        positions[1] = yPos;
+        positions[2] = xPos + length;
+        positions[3] = yPos;
+        positions[4] = xPos + length;
+        positions[5] = yPos + length;
+        positions[6] = xPos;
+        positions[7] = yPos + length;
+
+        this.polygon = new Polygon(positions);
 
         // calculating values for movementX and movementY
-        double angle = StaticMath.calculateAngle((int) circle.x, (int) circle.y, xPosMonster, yPosMonster);
+        double angle = StaticMath.calculateAngle((int) polygon.getVertices()[0], (int) polygon.getVertices()[1], xPosMonster, yPosMonster);
 
         movementX = Math.cos(angle) * SPEED;
         movementY = Math.sin(angle) * SPEED;
@@ -33,16 +40,16 @@ public class Projectile {
     public void move(ArrayList<Wall> walls){
         checkCollision(walls);
 
-        circle.x += this.movementX;
-        circle.y += this.movementY;
+        setxPos((int) (getxPos() + this.movementX));
+        setyPos((int) (getyPos() + this.movementY));
     }
 
     private void checkCollision(ArrayList<Wall> walls){
         for(Wall wall : walls){
             if(/*Intersector.overlaps(circle, wall.getPolygon())*/ false){
 
-                circle.x -= movementX;
-                circle.y -= movementY;
+                setxPos((int) (getxPos() - this.movementX));
+                setyPos((int) (getyPos() - this.movementY));
 
                 collision(wall);
                 break;
@@ -63,18 +70,32 @@ public class Projectile {
     }
 
     public int getxPos() {
-        return (int) circle.x;
+        return (int) polygon.getVertices()[0];
     }
 
     public int getyPos() {
-        return (int) circle.y;
+        return (int) polygon.getVertices()[1];
+    }
+
+    public void setxPos(int xPos){
+        polygon.getVertices()[0] = xPos;
+        polygon.getVertices()[2] = xPos + 5;
+        polygon.getVertices()[4] = xPos + 5;
+        polygon.getVertices()[6] = xPos;
+    }
+
+    public void setyPos(int yPos){
+        polygon.getVertices()[1] = yPos;
+        polygon.getVertices()[3] = yPos;
+        polygon.getVertices()[5] = yPos + 5;
+        polygon.getVertices()[7] = yPos + 5;
     }
 
     public int getRadius(){
-        return (int) circle.radius;
+        return 5;
     }
 
-    public Circle getCircle() {
-        return circle;
+    public Polygon getPolygon() {
+        return polygon;
     }
 }
