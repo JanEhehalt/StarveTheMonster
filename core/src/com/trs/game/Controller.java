@@ -47,9 +47,11 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 		wallTimer.scheduleTask(new Timer.Task() {
 			@Override
 			public void run() {
-				model.timerStep();
+				if(screen.getId() == 1) {
+					model.timerStep();
+				}
 			}
-		}, 0, 1f);
+		}, 0, 0.05f);
 		font = new BitmapFont();
 
 		// BITMAP FONT
@@ -81,7 +83,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 				renderer.rect(wall.getRect().getX(), wall.getRect().getY(),0,0, wall.getRect().getWidth(), wall.getRect().getHeight(),1,1, (float)wall.getRotation());
 			}
 			for(Projectile projectile : model.getProjectiles()){
-				renderer.circle(projectile.getxPos(),projectile.getyPos(),5);
+				renderer.circle(projectile.getxPos(), projectile.getyPos(), projectile.getRadius());
 			}
 			renderer.end();
 			model.getMonster().drawMonster(renderer);
