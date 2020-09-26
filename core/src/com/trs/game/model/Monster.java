@@ -99,16 +99,7 @@ public class Monster {
         this.yPos += this.movementY;
 
         // Collisions
-        float[] verticesMonster = new float[8];
-        verticesMonster[0] = xPos;
-        verticesMonster[1] = yPos;
-        verticesMonster[2] = xPos + WIDTH;
-        verticesMonster[3] = yPos;
-        verticesMonster[4] = xPos + WIDTH;
-        verticesMonster[5] = yPos + HEIGHT;
-        verticesMonster[6] = xPos;
-        verticesMonster[7] = yPos + HEIGHT;
-        Polygon monsterPolygon = new Polygon(verticesMonster);
+        Polygon monsterPolygon = getMonsterPolygon();
 
         hp--;
 
@@ -122,6 +113,16 @@ public class Monster {
         if(hp <= 0){
             die();
         }
+
+        for(int i = walls.size() - 1; i >= 0; i--){
+            Polygon wall = walls.get(i).getPolygon();
+            if(Intersector.overlapConvexPolygons(monsterPolygon, wall)){
+                setxPos(getxPos() - (int) movementX);
+                setyPos(getyPos() - (int) movementY);
+
+                generateNewTarget();
+            }
+        }
     }
 
     private void hit(){
@@ -129,6 +130,19 @@ public class Monster {
         if(hp > maxHp){
             hp = maxHp;
         }
+    }
+
+    public Polygon getMonsterPolygon(){
+        float[] verticesMonster = new float[8];
+        verticesMonster[0] = xPos;
+        verticesMonster[1] = yPos;
+        verticesMonster[2] = xPos + WIDTH;
+        verticesMonster[3] = yPos;
+        verticesMonster[4] = xPos + WIDTH;
+        verticesMonster[5] = yPos + HEIGHT;
+        verticesMonster[6] = xPos;
+        verticesMonster[7] = yPos + HEIGHT;
+        return new Polygon(verticesMonster);
     }
 
     private void checkTarget(){

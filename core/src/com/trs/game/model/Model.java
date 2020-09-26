@@ -61,8 +61,8 @@ public class Model {
         }
 
         // Generation of new projectiles
-        int value = (int) (Math.random() * 5) + difficulty;
-        if(value > 0){
+        int value = (int) (Math.random() * 15);
+        if(value < (difficulty * 3)){
             projectiles.add(spawnProjectile());
         }
     }
@@ -95,6 +95,10 @@ public class Model {
                     possible = false;
                     break;
                 }
+            }
+
+            if(Intersector.overlapConvexPolygons(tempPolygon, monster.getMonsterPolygon())){
+                possible = false;
             }
             /*
             for(Projectile projectile : projectiles){
