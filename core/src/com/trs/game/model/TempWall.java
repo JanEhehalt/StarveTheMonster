@@ -9,11 +9,13 @@ public class TempWall implements Wall {
     private double rotation;
     private Polygon polygon;
     private int lifetime;
+    private Polygon[] collisionPolygons;
 
     public TempWall(double rotation, Polygon polygon, int lifetime){
         this.rotation = rotation;
         this.polygon = polygon;
         this.lifetime = lifetime;
+        collisionPolygons = StaticMath.createCollisionPolygons(polygon);
     }
 
     @Override
@@ -25,6 +27,11 @@ public class TempWall implements Wall {
         float[] vertices = polygon.getVertices();
 
         return Math.toDegrees(StaticMath.calculateAngle((int) vertices[0], (int) vertices[1], (int) vertices[6], (int) vertices[7]));
+    }
+
+    @Override
+    public Polygon[] getCollisionPolygons() {
+        return collisionPolygons;
     }
 
     public void setRotation(double rotation) {
