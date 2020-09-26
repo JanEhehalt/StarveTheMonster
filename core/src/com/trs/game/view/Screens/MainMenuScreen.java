@@ -14,16 +14,16 @@ public class MainMenuScreen extends Screen {
 
     public MainMenuScreen(int GAME_WORLD_WIDTH, int GAME_WORLD_HEIGHT){
         super(GAME_WORLD_WIDTH, GAME_WORLD_HEIGHT, 0);
-        buttons.add(new Button(-1,0,0,200,80,"MainMenuScreen", Color.BLACK,Color.WHITE));
 
-        buttons.add(new Button(0,0,800,200,100, "MainMenu", Color.BLACK,Color.WHITE));
-        buttons.add(new Button(1,200,800,200,100, "GameScreen", Color.DARK_GRAY,Color.WHITE));
-        buttons.add(new Button(2,400,800,200,100, "EndScreen", Color.BLACK,Color.WHITE));
+        texts.add(new Text(GAME_WORLD_WIDTH/2, GAME_WORLD_HEIGHT/2, "Protect the Monster", Color.BLACK, 3, GAME_WORLD_HEIGHT/2 - 50,GAME_WORLD_HEIGHT/2 + 50));
+
     }
 
     @Override
     public void timer() {
-
+        for(Text text : texts){
+            text.timer();
+        }
     }
 
     @Override
@@ -46,7 +46,7 @@ public class MainMenuScreen extends Screen {
                 return button.getId();
             }
         }
-        return -1;
+        return 1;
     }
 
     @Override
