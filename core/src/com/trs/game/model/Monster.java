@@ -102,7 +102,7 @@ public class Monster {
 
     private void hit(){
         hp--;
-        if(hp == 0){
+        if(hp <= 0){
             die();
         }
     }

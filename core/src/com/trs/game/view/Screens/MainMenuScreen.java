@@ -20,7 +20,7 @@ public class MainMenuScreen extends Screen {
 
         buttons.add(new Button(-1,250,100,240,50,"Difficulty",Color.BLACK,Color.WHITE));
         buttons.add(new Button(3,500,100,210,50,"Easy",Color.DARK_GRAY,Color.WHITE));
-        buttons.add(new Button(4,710,100,210,50,"Medium",Color.GRAY,Color.WHITE));
+        buttons.add(new Button(4,710,100,210,50,"Medium",Color.GRAY,Color.BLUE));
         buttons.add(new Button(5,920,100,210,50,"Hard",Color.DARK_GRAY,Color.WHITE));
         buttons.add(new Button(6,1130,100,210,50,"Impossible",Color.GRAY,Color.WHITE));
     }
