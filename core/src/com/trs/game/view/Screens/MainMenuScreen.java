@@ -15,7 +15,8 @@ public class MainMenuScreen extends Screen {
     public MainMenuScreen(int GAME_WORLD_WIDTH, int GAME_WORLD_HEIGHT){
         super(GAME_WORLD_WIDTH, GAME_WORLD_HEIGHT, 0);
 
-        texts.add(new Text(GAME_WORLD_WIDTH/2, GAME_WORLD_HEIGHT/2, "Protect the Monster", Color.BLACK, 3, GAME_WORLD_HEIGHT/2 - 50,GAME_WORLD_HEIGHT/2 + 50));
+        texts.add(new Text(GAME_WORLD_WIDTH/2, (int)((float)GAME_WORLD_HEIGHT * 0.85f), "Starve the Monster", Color.BLACK, 4, 0,0));
+        texts.add(new Text(GAME_WORLD_WIDTH/2, GAME_WORLD_HEIGHT/2, "click to start...", Color.BLACK, 2, GAME_WORLD_HEIGHT/2 - 30,GAME_WORLD_HEIGHT/2 + 30));
 
         buttons.add(new Button(-1,250,100,240,50,"Difficulty",Color.BLACK,Color.WHITE));
         buttons.add(new Button(3,500,100,210,50,"Easy",Color.DARK_GRAY,Color.WHITE));
