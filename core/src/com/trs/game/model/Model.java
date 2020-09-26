@@ -30,21 +30,25 @@ public class Model {
         projectiles.add(new Projectile(270, 500, 270, 0));
     }
 
-    public void timerStep(){
-        monster.move(walls);
+    public void timerStep() {
+        monster.move(walls, projectiles);
 
-        for(Projectile projectile : projectiles){
+        for (Projectile projectile : projectiles) {
             projectile.move(walls);
         }
-        for(int i = 0; i < walls.size(); i++){
+        for (int i = 0; i < walls.size(); i++) {
             walls.get(i).timerStep();
-            if(walls.get(i).getLifetime() == 0){
+            if (walls.get(i).getLifetime() == 0) {
                 walls.remove(i);
                 i--;
             }
+
+            if (monster.getIsDead()) {
+                // TODO: Tod implementieren
+            }
         }
     }
-
+    
     public void startWall(int x, int y){
         if(!drawing){
             tempPolygon = StaticMath.createPolygon(x,y,0,10,5);
