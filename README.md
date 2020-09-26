@@ -24,8 +24,9 @@ Drag your mouse to create new walls which block off the humans.
 
 ## Credentials
 
-Menu music by [pbondoer](https://opengameart.org/users/pbondoer) (CC-BY-SA 3.0)  
-Game music by [Jan125](https://opengameart.org/users/jan125) (OGA-BY 3.0)  
+Menu music by [pbondoer](https://opengameart.org/content/a-journey-awaits) (CC-BY-SA 3.0)  
+Game and fail music by [Jan125](https://opengameart.org/content/stereotypical-90s-space-shooter-music) (OGA-BY 3.0)  
+Victory music by [Macro](https://opengameart.org/content/steppin-up) (CC-BY 3.0)  
 
 Mail:  
 therestlesscaverns@gmail.com  
