@@ -5,7 +5,7 @@
 ## General Information
 
 "Protect the Monster" has been created for the [NoImage Gamejam](https://itch.io/jam/no-image-jam). It was developed by @JonathanHager and @GammelJAN. The main goal of this game is to prevent the monster
-from eating the humans that run towards it.
+from eating the humans that run towards it. The game was written with the Java game library [LibGDX](https://libgdx.badlogicgames.com/).
 
 ## Installation
 You can find the newest Jar file in *core/build/libs/*. If you wish to compile your own, you need to have the JDK and Gradle installed. Then run 
@@ -22,15 +22,7 @@ The collisions should represent collisions in the real world. The physics for th
 
 Drag your mouse to create new walls which block off the humans.
 
-## Information about the code
-
-### Model
-
-### View
-
-### Control
-
-## Contact
+## Credentials
 
 Mail:  
 therestlesscaverns@gmail.com  
