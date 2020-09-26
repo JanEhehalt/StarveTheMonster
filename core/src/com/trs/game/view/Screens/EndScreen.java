@@ -42,6 +42,11 @@ public class EndScreen extends Screen {
         buttons.add(new Button(4,710,100,210,50,"Medium",Color.GRAY,Color.BLUE));
         buttons.add(new Button(5,920,100,210,50,"Hard",Color.DARK_GRAY,Color.WHITE));
         buttons.add(new Button(6,1130,100,210,50,"Impossible",Color.GRAY,Color.WHITE));
+
+        texts.add(new Text(50,845, "Volume:", Color.BLACK,1,0,0));
+
+        buttons.add(new Button(7,100,830,35,35,"-",Color.DARK_GRAY,Color.WHITE));
+        buttons.add(new Button(8,140,830,35,35,"+",Color.DARK_GRAY,Color.WHITE));
     }
 
     @Override

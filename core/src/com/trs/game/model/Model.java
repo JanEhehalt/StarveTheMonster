@@ -78,7 +78,7 @@ public class Model {
         }
     }
     public void finishWall(int x, int y){
-        if(Vector2.dst(tempStart.x,tempStart.y,x,y) > 150) {
+        if(Vector2.dst(tempStart.x,tempStart.y,x,y) > 50) {
             double angle = StaticMath.calculateAngle(x,y,(int)tempStart.x,(int)tempStart.y);
             tempPolygon = StaticMath.createPolygon((int)tempStart.x, (int)tempStart.y, angle-Math.PI,10,Vector2.dst(tempStart.x,tempStart.y,x,y));
 

@@ -237,6 +237,14 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 			case 6:
 				difficulty = 4;
 				break;
+			case 7:
+				if(volume > 0.1) volume -= 0.1;
+				screen.setVolume(volume);
+				break;
+			case 8:
+				if(volume < 0.9) volume += 0.1;
+				screen.setVolume(volume);
+				break;
 		}
 	}
 
