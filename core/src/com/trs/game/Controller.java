@@ -217,6 +217,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 				screen = new MainMenuScreen(GAME_WORLD_WIDTH,GAME_WORLD_HEIGHT);
 				break;
 			case 1: //GOTO GAMESCREEN
+				model = new Model();
 				screen = new GameScreen(GAME_WORLD_WIDTH,GAME_WORLD_HEIGHT);
 				break;
 			case 2: //GOTO ENDSCREEN

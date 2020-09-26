@@ -62,6 +62,12 @@ public class Model {
                     break;
                 }
             }
+            for(Projectile projectile : projectiles){
+                if(Intersector.overlapConvexPolygons(tempPolygon,projectile.getPolygon())){
+                    possible = false;
+                    break;
+                }
+            }
 
             if(possible){
                 leftWallLength -= Vector2.dst(tempStart.x,tempStart.y,x,y);
