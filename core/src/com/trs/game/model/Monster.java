@@ -78,7 +78,6 @@ public class Monster {
 
         this.xPos += this.movementX;
         this.yPos += this.movementY;
-        System.out.println(hp);
 
         // Collisions
         float[] verticesMonster = new float[8];
@@ -153,5 +152,21 @@ public class Monster {
 
     public boolean getIsDead(){
         return this.isDead;
+    }
+
+    public int getxPos() {
+        return xPos;
+    }
+
+    public void setxPos(int xPos) {
+        this.xPos = xPos;
+    }
+
+    public int getyPos() {
+        return yPos;
+    }
+
+    public void setyPos(int yPos) {
+        this.yPos = yPos;
     }
 }

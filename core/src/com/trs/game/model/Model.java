@@ -16,9 +16,13 @@ public class Model {
     private boolean drawing = false;
     private int currentLength;
 
+    private int difficulty;
+
     private int leftWallLength = 2500;
 
     public Model(){
+        difficulty = 0;
+
         monster = new Monster(250,150);
         walls = new ArrayList<>();
         walls.add(new PermWall(60, StaticMath.createPolygon(250,250, 60,25, 100)));
@@ -30,12 +34,23 @@ public class Model {
     public void timerStep(){
         monster.move(walls, projectiles);
 
-        for(Projectile projectile : projectiles){
+        for(int i = projectiles.size() - 1; i >= 0; i--){
+            Projectile projectile = projectiles.get(i);
+
             projectile.move(walls);
+            if(projectile.getxPos() < -110 || projectile.getxPos() > 1710 || projectile.getyPos() < -110 || projectile.getyPos() > 1010){
+                projectiles.remove(i);
+            }
         }
 
         if(monster.getIsDead()){
             // TODO: Tod implementieren
+        }
+
+        // Generation of new projectiles
+        int value = (int) (Math.random() * 5) + difficulty;
+        if(value > 0){
+            projectiles.add(spawnProjectile());
         }
     }
 
@@ -86,6 +101,35 @@ public class Model {
         currentLength = 0;
     }
 
+    private Projectile spawnProjectile(){
+        int xPos;
+        int yPos;
+
+        int direction = (int) (Math.random() * 4);
+
+        // up
+        if(direction == 0){
+            xPos = (int) (Math.random() * 1600);
+            yPos = 1000;
+        }
+        // right
+        else if(direction == 1){
+            xPos = 1700;
+            yPos = (int) (Math.random() * 900);
+        }
+        // down
+        else if(direction == 2){
+            xPos = (int) (Math.random() * 1600);
+            yPos = -100;
+        }
+        // left
+        else{
+            xPos = -100;
+            yPos = (int) (Math.random() * 900);
+        }
+
+        return new Projectile(xPos, yPos, monster.getxPos(), monster.getyPos());
+    }
 
     public ArrayList<Wall> getWalls(){
         return walls;
