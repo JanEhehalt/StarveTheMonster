@@ -1,5 +1,6 @@
 package com.trs.game.model;
 
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.trs.game.StaticMath;
@@ -13,6 +14,8 @@ public class Model {
     private Polygon tempPolygon;
     private Vector2 tempStart;
     private boolean drawing = false;
+
+    private int leftWallLength = 2500;
 
     public Model(){
         monster = new Monster(250,150);
@@ -45,10 +48,25 @@ public class Model {
         }
     }
     public void finishWall(int x, int y){
-        if(Vector2.dst(tempStart.x,tempStart.y,x,y) > 50) {
+        if(Vector2.dst(tempStart.x,tempStart.y,x,y) > 150) {
             double angle = StaticMath.calculateAngle(x,y,(int)tempStart.x,(int)tempStart.y);
             tempPolygon = StaticMath.createPolygon((int)tempStart.x, (int)tempStart.y, Math.toDegrees(angle-Math.PI),10,Vector2.dst(tempStart.x,tempStart.y,x,y));
-            walls.add(new TempWall(Math.toDegrees(angle-Math.PI), tempPolygon, 500));
+
+            boolean possible = true;
+            if(Vector2.dst(tempStart.x,tempStart.y,x,y) > leftWallLength)
+                possible = false;
+            if(possible)
+            for(Wall wall : walls){
+                if(Intersector.overlapConvexPolygons(tempPolygon, wall.getPolygon())){
+                    possible = false;
+                    break;
+                }
+            }
+
+            if(possible){
+                leftWallLength -= Vector2.dst(tempStart.x,tempStart.y,x,y);
+                walls.add(new TempWall(Math.toDegrees(angle-Math.PI), tempPolygon, 500));
+            }
         }
         tempPolygon = null;
         tempStart = null;
@@ -70,5 +88,9 @@ public class Model {
 
     public Polygon getTempPolygon() {
         return tempPolygon;
+    }
+
+    public int getLeftWallLength() {
+        return leftWallLength;
     }
 }

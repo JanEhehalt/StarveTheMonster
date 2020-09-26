@@ -142,6 +142,11 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 			//
 			renderer.end();
 
+			// write left Length
+			batch.begin();
+			font.setColor(Color.BLACK);
+			font.draw(batch, ""+model.getLeftWallLength(), 1500f,800f);
+			batch.end();
 			// DRAW MONSTER
 			//model.getMonster().drawMonster(renderer,polygonSpriteBatch);
 		}
