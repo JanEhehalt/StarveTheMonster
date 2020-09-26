@@ -28,10 +28,7 @@ public class Model {
 
         monster = new Monster(250,150);
         walls = new ArrayList<>();
-        walls.add(new PermWall(60, StaticMath.createPolygon(250,250, 60,25, 100)));
-
         projectiles = new ArrayList<>();
-        projectiles.add(new Projectile(270, 500, 270, 0));
     }
 
     public void timerStep() {
