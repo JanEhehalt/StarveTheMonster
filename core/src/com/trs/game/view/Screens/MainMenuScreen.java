@@ -17,6 +17,11 @@ public class MainMenuScreen extends Screen {
 
         texts.add(new Text(GAME_WORLD_WIDTH/2, GAME_WORLD_HEIGHT/2, "Protect the Monster", Color.BLACK, 3, GAME_WORLD_HEIGHT/2 - 50,GAME_WORLD_HEIGHT/2 + 50));
 
+        buttons.add(new Button(-1,250,100,240,50,"Difficulty",Color.BLACK,Color.WHITE));
+        buttons.add(new Button(3,500,100,210,50,"Easy",Color.DARK_GRAY,Color.WHITE));
+        buttons.add(new Button(4,710,100,210,50,"Medium",Color.GRAY,Color.WHITE));
+        buttons.add(new Button(5,920,100,210,50,"Hard",Color.DARK_GRAY,Color.WHITE));
+        buttons.add(new Button(6,1130,100,210,50,"Impossible",Color.GRAY,Color.WHITE));
     }
 
     @Override
@@ -42,7 +47,12 @@ public class MainMenuScreen extends Screen {
         Rectangle r = new Rectangle(x,y,1,1);
         for(Button button : buttons){
             if(Intersector.overlaps(r, button.getRect())){
-                System.out.println(button.getId());
+                if(button.getId() == 3 || button.getId() == 4 || button.getId() == 5 || button.getId() == 6 ){
+                    for(Button button2 : buttons){
+                        button2.setTextColor(Color.WHITE);
+                    }
+                    button.setTextColor(Color.BLUE);
+                }
                 return button.getId();
             }
         }

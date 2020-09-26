@@ -23,8 +23,8 @@ public class Model {
 
     private int leftWallLength = 5000;
 
-    public Model(){
-        difficulty = 0;
+    public Model(int difficulty){
+        this.difficulty = difficulty;
 
         monster = new Monster(250,150);
         walls = new ArrayList<>();

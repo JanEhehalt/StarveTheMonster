@@ -59,6 +59,14 @@ public class Button {
         return new Rectangle(xPos,yPos,width,height);
     }
 
+    public void setButtonColor(Color buttonColor) {
+        this.buttonColor = buttonColor;
+    }
+
+    public void setTextColor(Color textColor) {
+        this.textColor = textColor;
+    }
+
     public float getTextWidth(BitmapFont font, String text){
         GlyphLayout glyphLayout = new GlyphLayout();
         glyphLayout.setText(font,text);
