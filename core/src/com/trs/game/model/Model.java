@@ -8,6 +8,9 @@ import com.trs.game.StaticMath;
 import java.util.ArrayList;
 
 public class Model {
+
+    final int WALL_LIFETIME = 75;
+
     private Monster monster;
     private ArrayList<Wall> walls;
     private ArrayList<Projectile> projectiles;
@@ -18,7 +21,7 @@ public class Model {
 
     private int difficulty;
 
-    private int leftWallLength = 2500;
+    private int leftWallLength = 5000;
 
     public Model(){
         difficulty = 0;
@@ -31,20 +34,26 @@ public class Model {
         projectiles.add(new Projectile(270, 500, 270, 0));
     }
 
-    public void timerStep(){
+    public void timerStep() {
         monster.move(walls, projectiles);
 
         for(int i = projectiles.size() - 1; i >= 0; i--){
             Projectile projectile = projectiles.get(i);
-
             projectile.move(walls);
             if(projectile.getxPos() < -110 || projectile.getxPos() > 1710 || projectile.getyPos() < -110 || projectile.getyPos() > 1010){
                 projectiles.remove(i);
             }
         }
+        for (int i = 0; i < walls.size(); i++) {
+            walls.get(i).timerStep();
+            if (walls.get(i).getLifetime() == 0) {
+                walls.remove(i);
+                i--;
+            }
 
-        if(monster.getIsDead()){
-            // TODO: Tod implementieren
+            if (monster.getIsDead()) {
+                // TODO: Tod implementieren
+            }
         }
 
         // Generation of new projectiles
@@ -53,7 +62,7 @@ public class Model {
             projectiles.add(spawnProjectile());
         }
     }
-
+    
     public void startWall(int x, int y){
         if(!drawing){
             tempPolygon = StaticMath.createPolygon(x,y,0,10,5);
@@ -92,7 +101,7 @@ public class Model {
 
             if(possible){
                 leftWallLength -= Vector2.dst(tempStart.x,tempStart.y,x,y);
-                walls.add(new TempWall(angle-Math.PI, tempPolygon, 500));
+                walls.add(new TempWall(angle-Math.PI, tempPolygon, WALL_LIFETIME));
             }
         }
         tempPolygon = null;

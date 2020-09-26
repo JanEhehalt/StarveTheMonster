@@ -34,6 +34,8 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 	final int GAME_WORLD_WIDTH = 1600;
 	final int GAME_WORLD_HEIGHT = 900;
 
+	final int WALL_LIFETIME = 75;
+
 	SpriteBatch batch;
 	ShapeRenderer renderer;
 	PolygonSpriteBatch polygonSpriteBatch;
@@ -77,10 +79,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 		//
 
 		//POLYGON STUFF
-		pix = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
-		pix.setColor(Color.BLACK); // DE is red, AD is green and BE is blue.
-		pix.fill();
-		textureSolid = new Texture(pix);
+
 
 		screen = new MainMenuScreen(GAME_WORLD_WIDTH,GAME_WORLD_HEIGHT);
 
@@ -90,6 +89,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 	@Override
 	public void render () {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
+		//Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		// WORKAROUND, BECAUSE MOUSEMOVED NOT WORKING WHILE TOUCHDOWN
 		if(screen.getId() == 1) model.adjustWall(Gdx.input.getX(), GAME_WORLD_HEIGHT - Gdx.input.getY());
@@ -100,56 +100,35 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 		if(screen.getId() == 1){
 			// DRAW WALLS
 			for(Wall wall : model.getWalls()){
-				PolygonSprite poly;
-				PolygonRegion polyReg = new PolygonRegion(new TextureRegion(textureSolid),
-						wall.getPolygon().getVertices(), new short[] {
-						0, 1, 2,         // Two triangles using vertex indices.
-						0, 2, 3          // Take care of the counter-clockwise direction.
-				});
-				poly = new PolygonSprite(polyReg);
-				polygonSpriteBatch.begin();
-				poly.draw(polygonSpriteBatch);
-				polygonSpriteBatch.end();
+				if(wall.getLifetime() == -1){
+					drawPolygon(wall.getPolygon(),Color.BLACK);
+				}
+				else{
+					//float Value = ((float)(((float)wall.getLifetime() / (float)WALL_LIFETIME) * 255f))/255f);
+					float Value = 1f-(((float)wall.getLifetime()) / ((float)WALL_LIFETIME));
+					System.out.println(Value);
+					Color color = new Color(Value,Value,Value,1);
+					drawPolygon(wall.getPolygon(),color);
+				}
 			}
-
 			// DRAW PROJECTILES
 			renderer.begin(ShapeRenderer.ShapeType.Filled);
 			for(Projectile projectile : model.getProjectiles()){
-				PolygonSprite poly;
-				PolygonRegion polyReg = new PolygonRegion(new TextureRegion(textureSolid),
-						projectile.getPolygon().getVertices(), new short[] {
-						0, 1, 2,         // Two triangles using vertex indices.
-						0, 2, 3          // Take care of the counter-clockwise direction.
-				});
-				poly = new PolygonSprite(polyReg);
-				polygonSpriteBatch.begin();
-				poly.draw(polygonSpriteBatch);
-				polygonSpriteBatch.end();
+				drawPolygon(projectile.getPolygon(), Color.BLACK);
 			}
 			// TEMP POLYGON
 			if(model.getTempPolygon() != null){
-				PolygonSprite poly2;
-				PolygonRegion polyReg = new PolygonRegion(new TextureRegion(textureSolid),
-						model.getTempPolygon().getVertices(), new short[]{
-						0, 1, 2,         // Two triangles using vertex indices.
-						0, 2, 3          // Take care of the counter-clockwise direction.
-				});
-				poly2 = new PolygonSprite(polyReg);
-				polygonSpriteBatch.begin();
-				poly2.draw(polygonSpriteBatch);
-				polygonSpriteBatch.end();
-
+				drawPolygon(model.getTempPolygon(),Color.BLACK);
 				renderer.end();
-				batch.begin();
-				font.setColor(Color.GRAY);
-				if(model.getCurrentLength()!=0)font.draw(batch, ""+model.getCurrentLength(), Gdx.input.getX()+10, GAME_WORLD_HEIGHT - Gdx.input.getY()+10);
-				batch.end();
 
-				renderer.begin(ShapeRenderer.ShapeType.Filled);
+			// LENGTH
+			batch.begin();
+			font.setColor(Color.GRAY);
+			if(model.getCurrentLength()!=0)font.draw(batch, ""+model.getCurrentLength(), Gdx.input.getX()+10, GAME_WORLD_HEIGHT - Gdx.input.getY()+10);
+			batch.end();
 			}
 			//
 			renderer.end();
-
 			// write left Length
 			batch.begin();
 			font.setColor(Color.BLACK);
@@ -232,5 +211,22 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 				screen = new EndScreen(GAME_WORLD_WIDTH,GAME_WORLD_HEIGHT);
 				break;
 		}
+	}
+
+	public void drawPolygon(Polygon polygon, Color color){
+		pix = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+		pix.setColor(color); // DE is red, AD is green and BE is blue.
+		pix.fill();
+		textureSolid = new Texture(pix);
+		PolygonSprite poly;
+		PolygonRegion polyReg = new PolygonRegion(new TextureRegion(textureSolid),
+				polygon.getVertices(), new short[] {
+				0, 1, 2,         // Two triangles using vertex indices.
+				0, 2, 3          // Take care of the counter-clockwise direction.
+		});
+		poly = new PolygonSprite(polyReg);
+		polygonSpriteBatch.begin();
+		poly.draw(polygonSpriteBatch);
+		polygonSpriteBatch.end();
 	}
 }

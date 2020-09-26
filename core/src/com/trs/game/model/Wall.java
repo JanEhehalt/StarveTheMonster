@@ -7,4 +7,5 @@ public interface Wall {
     public Polygon getPolygon();
     public double getRotation();
     public Polygon[] getCollisionPolygons();
+    public int  getLifetime();
 }
