@@ -69,7 +69,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 					model.timerStep();
 					if(model.isToReset()){
 						screen.dispose();
-						screen = new EndScreen(GAME_WORLD_WIDTH,GAME_WORLD_HEIGHT,model.getEnding(), volume);
+						screen = new EndScreen(GAME_WORLD_WIDTH,GAME_WORLD_HEIGHT, model.getEnding(), volume);
 					}
 				}
 			}
