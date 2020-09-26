@@ -63,7 +63,7 @@ public class StaticMath {
 
     public static Polygon[] createCollisionPolygons(Polygon wall){
         Polygon[] collisionPolygons = new Polygon[4];
-
+        
         // first line of polygon
         float[] newVertices = wall.getVertices();
 
@@ -83,7 +83,7 @@ public class StaticMath {
         collisionPolygons[2] = new Polygon(newVertices);
 
         // second line of polygon
-        newVertices = wall.getVertices();
+       newVertices = wall.getVertices();
 
         newVertices[0] = newVertices[2];
         newVertices[1] = newVertices[3] + 1;
@@ -99,6 +99,7 @@ public class StaticMath {
         newVertices[4] = newVertices[6];
         newVertices[5] = newVertices[7] - 1;
         collisionPolygons[3] = new Polygon(newVertices);
+
 
         return collisionPolygons;
     }

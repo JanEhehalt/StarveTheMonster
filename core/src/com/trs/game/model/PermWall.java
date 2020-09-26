@@ -7,10 +7,12 @@ public class PermWall implements Wall {
 
     private double rotation;
     private Polygon polygon;
+    private Polygon[] collisionPolygons;
 
     public PermWall(double rotation, Polygon polygon){
         this.rotation = rotation;
         this.polygon = polygon;
+        collisionPolygons = StaticMath.createCollisionPolygons(polygon);
     }
 
     @Override
@@ -22,6 +24,11 @@ public class PermWall implements Wall {
         float[] vertices = polygon.getVertices();
 
         return Math.toDegrees(StaticMath.calculateAngle((int) vertices[0], (int) vertices[1], (int) vertices[6], (int) vertices[7]));
+    }
+
+    @Override
+    public Polygon[] getCollisionPolygons() {
+        return collisionPolygons;
     }
 
     public void setRotation(double rotation) {
