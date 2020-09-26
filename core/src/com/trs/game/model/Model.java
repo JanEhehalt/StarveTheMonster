@@ -53,7 +53,11 @@ public class Model {
         }
         if (monster.getIsDead()) {
             toReset = true;
-            ending = true; // Monster win - Player lost
+            ending = false; // Monster win - Player lost
+        }
+        if(monster.getHp() == monster.getMaxHp()){
+            toReset = true;
+            ending = true;
         }
 
         // Generation of new projectiles

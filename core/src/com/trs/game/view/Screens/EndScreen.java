@@ -31,7 +31,7 @@ public class EndScreen extends Screen {
         music.play();
 
         if(lost)
-            texts.add(new Text(GAME_WORLD_WIDTH/2, (int)((float)GAME_WORLD_HEIGHT * 0.85f), "The monster ate too many doods!", Color.BLACK, 3, 0,0));
+            texts.add(new Text(GAME_WORLD_WIDTH/2, (int)((float)GAME_WORLD_HEIGHT * 0.85f), "The monster ate too many people!", Color.BLACK, 3, 0,0));
         else
             texts.add(new Text(GAME_WORLD_WIDTH/2, (int)((float)GAME_WORLD_HEIGHT * 0.85f), "You successfully starved the Monster!", Color.BLACK, 3, 0,0));
 

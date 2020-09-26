@@ -3,9 +3,11 @@ package com.trs.game.model;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.PolygonRegion;
 import com.badlogic.gdx.graphics.g2d.PolygonSprite;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Intersector;
@@ -33,14 +35,14 @@ public class Monster {
     public Monster(int xPos, int yPos){
         this.xPos = xPos;
         this.yPos = yPos;
-        this.maxHp = 3;
-        this.hp = 3;
+        this.maxHp = 500;
+        this.hp = 350;
         isDead = false;
 
         generateNewTarget();
     }
 
-    public void drawMonster(ShapeRenderer renderer, PolygonSpriteBatch polygonSpriteBatch){
+    public void drawMonster(ShapeRenderer renderer, PolygonSpriteBatch polygonSpriteBatch, SpriteBatch batch, BitmapFont font){
         if(renderer.isDrawing()) renderer.end();
         renderer.begin(ShapeRenderer.ShapeType.Filled);
         //BODY
@@ -69,7 +71,24 @@ public class Monster {
         renderer.triangle(xPos+28,yPos+10,xPos+31,yPos+15,xPos+34,yPos+10);
         renderer.triangle(xPos+34,yPos+10,xPos+37,yPos+15,xPos+40,yPos+10);
 
+        // HUNGER BAR
+        renderer.setColor(Color.BLACK);
+        renderer.rect(xPos - 26, yPos + 55, 102,22);
+        renderer.setColor(Color.BROWN);
+        renderer.rect(xPos - 25, yPos + 56, 100f * (float)hp/(float)maxHp,20);
+        renderer.setColor(Color.DARK_GRAY);
+        renderer.rect(xPos - 25 + 100f * (float)hp/(float)maxHp, yPos + 56, 100 - 100f * (float)hp/(float)maxHp,20);
+
         renderer.end();
+
+        batch.begin();
+        font.getData().setScale(0.8f);
+        font.setColor(Color.WHITE);
+        font.draw(batch, "Hunger",xPos - 22, yPos + 71);
+        font.getData().setScale(1f);
+        font.setColor(Color.BLACK);
+        batch.end();
+
 
     }
 
@@ -91,6 +110,8 @@ public class Monster {
         verticesMonster[7] = yPos + HEIGHT;
         Polygon monsterPolygon = new Polygon(verticesMonster);
 
+        hp--;
+
         for (int i = projectiles.size() - 1; i >= 0; i--) {
             Projectile projectile = projectiles.get(i);
             if (Intersector.overlapConvexPolygons(monsterPolygon, projectile.getPolygon())) {
@@ -98,12 +119,15 @@ public class Monster {
                 hit();
             }
         }
+        if(hp <= 0){
+            die();
+        }
     }
 
     private void hit(){
-        hp--;
-        if(hp <= 0){
-            die();
+        hp += 25;
+        if(hp > maxHp){
+            hp = maxHp;
         }
     }
 

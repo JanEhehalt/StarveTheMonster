@@ -145,7 +145,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 			font.getData().setScale(1);
 			batch.end();
 			// DRAW MONSTER
-			model.getMonster().drawMonster(renderer,polygonSpriteBatch);
+			model.getMonster().drawMonster(renderer,polygonSpriteBatch, batch, font);
 		}
 	}
 	
