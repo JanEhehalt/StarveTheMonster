@@ -96,16 +96,25 @@ public class Model {
                     break;
                 }
             }
+            /*
             for(Projectile projectile : projectiles){
                 if(Intersector.overlapConvexPolygons(tempPolygon,projectile.getPolygon())){
                     possible = false;
                     break;
                 }
             }
+            */
 
             if(possible){
                 leftWallLength -= Vector2.dst(tempStart.x,tempStart.y,x,y);
-                walls.add(new TempWall(angle-Math.PI, tempPolygon, WALL_LIFETIME));
+                TempWall newWall = new TempWall(angle-Math.PI, tempPolygon, WALL_LIFETIME);
+                for(int i = 0; i < projectiles.size(); i++){
+                    if(Intersector.overlapConvexPolygons(projectiles.get(i).getPolygon(),newWall.getPolygon())){
+                        projectiles.remove(i);
+                        i--;
+                    }
+                }
+                walls.add(newWall);
             }
         }
         tempPolygon = null;
