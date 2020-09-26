@@ -1,5 +1,7 @@
 package com.trs.game.model;
 
+import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.math.Vector2;
 import com.trs.game.StaticMath;
 
 import java.util.ArrayList;
@@ -8,6 +10,9 @@ public class Model {
     private Monster monster;
     private ArrayList<Wall> walls;
     private ArrayList<Projectile> projectiles;
+    private Polygon tempPolygon;
+    private Vector2 tempStart;
+    private boolean drawing = false;
 
     public Model(){
         monster = new Monster(250,150);
@@ -26,6 +31,31 @@ public class Model {
         }
     }
 
+    public void startWall(int x, int y){
+        if(!drawing){
+            tempPolygon = StaticMath.createPolygon(x,y,0,10,5);
+            tempStart = new Vector2(x,y);
+            drawing = true;
+        }
+    }
+    public void adjustWall(int x, int y){
+        if(drawing){
+            double angle = StaticMath.calculateAngle(x,y,(int)tempStart.x,(int)tempStart.y);
+            tempPolygon = StaticMath.createPolygon((int)tempStart.x, (int)tempStart.y, Math.toDegrees(angle-Math.PI),10,Vector2.dst(tempStart.x,tempStart.y,x,y));
+        }
+    }
+    public void finishWall(int x, int y){
+        if(Vector2.dst(tempStart.x,tempStart.y,x,y) > 50) {
+            double angle = StaticMath.calculateAngle(x,y,(int)tempStart.x,(int)tempStart.y);
+            tempPolygon = StaticMath.createPolygon((int)tempStart.x, (int)tempStart.y, Math.toDegrees(angle-Math.PI),10,Vector2.dst(tempStart.x,tempStart.y,x,y));
+            walls.add(new TempWall(Math.toDegrees(angle-Math.PI), tempPolygon, 500));
+        }
+        tempPolygon = null;
+        tempStart = null;
+        drawing = false;
+    }
+
+
     public ArrayList<Wall> getWalls(){
         return walls;
     }
@@ -36,5 +66,9 @@ public class Model {
 
     public ArrayList<Projectile> getProjectiles() {
         return projectiles;
+    }
+
+    public Polygon getTempPolygon() {
+        return tempPolygon;
     }
 }

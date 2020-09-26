@@ -17,7 +17,7 @@ public class TempWall implements Wall {
 
     @Override
     public Wall timerStep() {
-        return null;
+        return this;
     }
 
     public double getRotation() {

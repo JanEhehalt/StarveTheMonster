@@ -91,6 +91,8 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 	public void render () {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		// WORKAROUND, BECAUSE MOUSEMOVED NOT WORKING WHILE TOUCHDOWN
+		if(screen.getId() == 1) model.adjustWall(Gdx.input.getX(), GAME_WORLD_HEIGHT - Gdx.input.getY());
 
 		screen.render(batch,renderer,font);
 
@@ -124,6 +126,20 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 				poly.draw(polygonSpriteBatch);
 				polygonSpriteBatch.end();
 			}
+			// TEMP POLYGON
+			if(model.getTempPolygon() != null){
+				PolygonSprite poly2;
+				PolygonRegion polyReg = new PolygonRegion(new TextureRegion(textureSolid),
+						model.getTempPolygon().getVertices(), new short[]{
+						0, 1, 2,         // Two triangles using vertex indices.
+						0, 2, 3          // Take care of the counter-clockwise direction.
+				});
+				poly2 = new PolygonSprite(polyReg);
+				polygonSpriteBatch.begin();
+				poly2.draw(polygonSpriteBatch);
+				polygonSpriteBatch.end();
+			}
+			//
 			renderer.end();
 
 			// DRAW MONSTER
@@ -163,12 +179,14 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		ManageButtonEvent(screen.touchDown(screenX,GAME_WORLD_HEIGHT-screenY));
+		if(screen.getId() == 1) model.startWall(screenX, GAME_WORLD_HEIGHT - screenY);
 		return true;
 	}
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		return false;
+		if(screen.getId() == 1) model.finishWall(screenX, GAME_WORLD_HEIGHT - screenY);
+		return true;
 	}
 
 	@Override
@@ -178,6 +196,8 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 
 	@Override
 	public boolean mouseMoved(int screenX, int screenY) {
+		//if(screen.getId() == 1) model.adjustWall(screenX, GAME_WORLD_HEIGHT - screenY);
+		//return true;
 		return false;
 	}
 

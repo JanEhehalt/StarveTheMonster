@@ -75,7 +75,7 @@ public class Monster {
         if(this.xPos == this.xPosTarget && this.yPos == this.yPosTarget){
             this.generateNewTarget();
         }
-        if(Math.random() >= 0.9){
+        if(Math.random() >= 0.95){
             this.generateNewTarget();
         }
     }
