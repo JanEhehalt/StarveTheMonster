@@ -28,10 +28,14 @@ public class Model {
     }
 
     public void timerStep(){
-        monster.move(walls);
+        monster.move(walls, projectiles);
 
         for(Projectile projectile : projectiles){
             projectile.move(walls);
+        }
+
+        if(monster.getIsDead()){
+            // TODO: Tod implementieren
         }
     }
 

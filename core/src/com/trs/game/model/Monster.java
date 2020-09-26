@@ -17,6 +17,8 @@ import java.util.ArrayList;
 public class Monster {
 
     private final int SPEED = 5;
+    private final int WIDTH = 50;
+    private final int HEIGHT = 50;
 
     private int xPos;
     private int yPos;
@@ -24,10 +26,17 @@ public class Monster {
     private double movementY;
     private int xPosTarget;
     private int yPosTarget;
+    private int hp;
+    private int maxHp;
+    private boolean isDead;
 
     public Monster(int xPos, int yPos){
         this.xPos = xPos;
         this.yPos = yPos;
+        this.maxHp = 3;
+        this.hp = 3;
+        isDead = false;
+
         generateNewTarget();
     }
 
@@ -36,7 +45,7 @@ public class Monster {
         renderer.begin(ShapeRenderer.ShapeType.Filled);
         //BODY
         renderer.setColor(Color.BLACK);
-        renderer.rect(xPos, yPos, 50,50);
+        renderer.rect(xPos, yPos, WIDTH,HEIGHT);
         //EYES
         renderer.setColor(Color.RED);
         renderer.rect(xPos + 10, yPos + 30, 5, 10);
@@ -64,11 +73,39 @@ public class Monster {
 
     }
 
-    public void move(ArrayList<Wall> walls){
+    public void move(ArrayList<Wall> walls, ArrayList<Projectile> projectiles){
         checkTarget();
 
         this.xPos += this.movementX;
         this.yPos += this.movementY;
+        System.out.println(hp);
+
+        // Collisions
+        float[] verticesMonster = new float[8];
+        verticesMonster[0] = xPos;
+        verticesMonster[1] = yPos;
+        verticesMonster[2] = xPos + WIDTH;
+        verticesMonster[3] = yPos;
+        verticesMonster[4] = xPos + WIDTH;
+        verticesMonster[5] = yPos + HEIGHT;
+        verticesMonster[6] = xPos;
+        verticesMonster[7] = yPos + HEIGHT;
+        Polygon monsterPolygon = new Polygon(verticesMonster);
+
+        for (int i = projectiles.size() - 1; i >= 0; i--) {
+            Projectile projectile = projectiles.get(i);
+            if (Intersector.overlapConvexPolygons(monsterPolygon, projectile.getPolygon())) {
+                projectiles.remove(i);
+                hit();
+            }
+        }
+    }
+
+    private void hit(){
+        hp--;
+        if(hp == 0){
+            die();
+        }
     }
 
     private void checkTarget(){
@@ -94,4 +131,27 @@ public class Monster {
         movementY = Math.sin(angle) * SPEED;
     }
 
+    public int getHp() {
+        return hp;
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
+
+    public int getMaxHp() {
+        return maxHp;
+    }
+
+    public void setMaxHp(int maxHp) {
+        this.maxHp = maxHp;
+    }
+
+    private void die(){
+        this.isDead = true;
+    }
+
+    public boolean getIsDead(){
+        return this.isDead;
+    }
 }
