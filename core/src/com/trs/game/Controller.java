@@ -32,7 +32,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 	final int GAME_WORLD_WIDTH = 1600;
 	final int GAME_WORLD_HEIGHT = 900;
 
-	final int WALL_LIFETIME = 75;
+	final int WALL_LIFETIME = 30;
 
 	int difficulty = 1;
 

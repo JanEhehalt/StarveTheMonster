@@ -84,7 +84,7 @@ public class Monster {
         batch.begin();
         font.getData().setScale(0.8f);
         font.setColor(Color.WHITE);
-        font.draw(batch, "Hunger",xPos - 22, yPos + 71);
+        font.draw(batch, "Saturation",xPos - 22, yPos + 71);
         font.getData().setScale(1f);
         font.setColor(Color.BLACK);
         batch.end();

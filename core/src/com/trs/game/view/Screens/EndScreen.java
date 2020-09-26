@@ -15,6 +15,7 @@ public class EndScreen extends Screen {
 
     boolean lost;
 
+
     public EndScreen(int GAME_WORLD_WIDTH, int GAME_WORLD_HEIGHT, boolean lost, float volume){
         super(GAME_WORLD_WIDTH, GAME_WORLD_HEIGHT, 2, volume);
         this.lost = lost;
@@ -54,6 +55,8 @@ public class EndScreen extends Screen {
         texts.add(new Text(1300, 150, "Ingame music by Jan125@opengameart.org", Color.BLACK, 1, 0,0));
         texts.add(new Text(1300, 120, "Victory tune by Macto@opengameart.org", Color.BLACK, 1, 0,0));
         texts.add(new Text(1300, 90, "Lose music by Jan125@opengameart.org", Color.BLACK, 1, 0,0));
+        texts.add(new Text(1050, 60, "Game Developed by:", Color.BLACK, 1, 0,0));
+        texts.add(new Text(1250, 25, "GammelJAN@GitLab JonathanHager@GitLab", Color.BLACK, 1.5, 0,0));
     }
 
     @Override

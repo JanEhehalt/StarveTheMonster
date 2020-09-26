@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class Model {
 
-    final int WALL_LIFETIME = 75;
+    final int WALL_LIFETIME = 30;
 
     private Monster monster;
     private ArrayList<Wall> walls;
