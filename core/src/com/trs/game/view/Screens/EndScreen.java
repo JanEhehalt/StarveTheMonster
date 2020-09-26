@@ -14,16 +14,20 @@ public class EndScreen extends Screen {
 
     public EndScreen(int GAME_WORLD_WIDTH, int GAME_WORLD_HEIGHT){
         super(GAME_WORLD_WIDTH, GAME_WORLD_HEIGHT, 2);
-        buttons.add(new Button(-1,0,0,200,80,"EndScreen", Color.BLACK,Color.WHITE));
+        texts.add(new Text(GAME_WORLD_WIDTH/2, GAME_WORLD_HEIGHT/2, "click to restart...", Color.BLACK, 2, GAME_WORLD_HEIGHT/2 - 30,GAME_WORLD_HEIGHT/2 + 30));
 
-        buttons.add(new Button(0,0,800,200,100, "MainMenu", Color.BLACK,Color.WHITE));
-        buttons.add(new Button(1,200,800,200,100, "GameScreen", Color.DARK_GRAY,Color.WHITE));
-        buttons.add(new Button(2,400,800,200,100, "EndScreen", Color.BLACK,Color.WHITE));
+        buttons.add(new Button(-1,250,100,240,50,"Difficulty",Color.BLACK,Color.WHITE));
+        buttons.add(new Button(3,500,100,210,50,"Easy",Color.DARK_GRAY,Color.WHITE));
+        buttons.add(new Button(4,710,100,210,50,"Medium",Color.GRAY,Color.WHITE));
+        buttons.add(new Button(5,920,100,210,50,"Hard",Color.DARK_GRAY,Color.WHITE));
+        buttons.add(new Button(6,1130,100,210,50,"Impossible",Color.GRAY,Color.WHITE));
     }
 
     @Override
     public void timer() {
-
+        for(Text text : texts){
+            text.timer();
+        }
     }
 
     @Override
@@ -43,10 +47,16 @@ public class EndScreen extends Screen {
         for(Button button : buttons){
             if(Intersector.overlaps(r, button.getRect())){
                 System.out.println(button.getId());
+                if(button.getId() == 3 || button.getId() == 4 || button.getId() == 5 || button.getId() == 6 ){
+                    for(Button button2 : buttons){
+                        button2.setTextColor(Color.WHITE);
+                    }
+                    button.setTextColor(Color.BLUE);
+                }
                 return button.getId();
             }
         }
-        return -1;
+        return 1;
     }
 
     @Override
