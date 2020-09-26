@@ -8,7 +8,11 @@
 from eating the humans that run towards it.
 
 ## Installation
-You can find the newest Jar file in *core/build/libs/*. If you wish to compile your own, you need to have the JDK and Gradle installed. Then run *./gradlew desktop:dist* in the root directory of the project.
+You can find the newest Jar file in *core/build/libs/*. If you wish to compile your own, you need to have the JDK and Gradle installed. Then run 
+```bash
+./gradlew desktop:dist
+```
+in the root directory of the project.
 If you happen to be on Windows or any non-Unix platform, go get a good operating system (not MacOS!).
 
 ## Known Issues
