@@ -14,6 +14,7 @@ public class Model {
     private Polygon tempPolygon;
     private Vector2 tempStart;
     private boolean drawing = false;
+    private int currentLength;
 
     private int leftWallLength = 2500;
 
@@ -45,6 +46,7 @@ public class Model {
         if(drawing){
             double angle = StaticMath.calculateAngle(x,y,(int)tempStart.x,(int)tempStart.y);
             tempPolygon = StaticMath.createPolygon((int)tempStart.x, (int)tempStart.y, angle-Math.PI,10,Vector2.dst(tempStart.x,tempStart.y,x,y));
+            currentLength = (int)Vector2.dst(tempStart.x,tempStart.y,x,y);
         }
     }
     public void finishWall(int x, int y){
@@ -77,6 +79,7 @@ public class Model {
         tempPolygon = null;
         tempStart = null;
         drawing = false;
+        currentLength = 0;
     }
 
 
@@ -98,5 +101,9 @@ public class Model {
 
     public int getLeftWallLength() {
         return leftWallLength;
+    }
+
+    public int getCurrentLength() {
+        return currentLength;
     }
 }

@@ -138,6 +138,14 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 				polygonSpriteBatch.begin();
 				poly2.draw(polygonSpriteBatch);
 				polygonSpriteBatch.end();
+
+				renderer.end();
+				batch.begin();
+				font.setColor(Color.BLACK);
+				if(model.getCurrentLength()!=0)font.draw(batch, ""+model.getCurrentLength(), Gdx.input.getX()+10, GAME_WORLD_HEIGHT - Gdx.input.getY()+10);
+				batch.end();
+
+				renderer.begin(ShapeRenderer.ShapeType.Filled);
 			}
 			//
 			renderer.end();
