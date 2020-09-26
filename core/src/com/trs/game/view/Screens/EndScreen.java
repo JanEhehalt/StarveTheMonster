@@ -23,7 +23,7 @@ public class EndScreen extends Screen {
             music = Gdx.audio.newMusic(Gdx.files.internal("lose.ogg"));
         }
         else{
-            music = Gdx.audio.newMusic(Gdx.files.internal("victory.mp3"));
+            music = Gdx.audio.newMusic(Gdx.files.internal("victory.ogg"));
         }
 
         music.setVolume(volume);
