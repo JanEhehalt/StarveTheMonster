@@ -31,6 +31,11 @@ public class PermWall implements Wall {
         return collisionPolygons;
     }
 
+    @Override
+    public int getLifetime() {
+        return -1;
+    }
+
     public void setRotation(double rotation) {
         this.rotation = rotation;
     }

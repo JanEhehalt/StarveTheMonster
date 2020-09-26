@@ -8,6 +8,9 @@ import com.trs.game.StaticMath;
 import java.util.ArrayList;
 
 public class Model {
+
+    final int WALL_LIFETIME = 75;
+
     private Monster monster;
     private ArrayList<Wall> walls;
     private ArrayList<Projectile> projectiles;
@@ -16,7 +19,7 @@ public class Model {
     private boolean drawing = false;
     private int currentLength;
 
-    private int leftWallLength = 2500;
+    private int leftWallLength = 5000;
 
     public Model(){
         monster = new Monster(250,150);
@@ -32,6 +35,13 @@ public class Model {
 
         for(Projectile projectile : projectiles){
             projectile.move(walls);
+        }
+        for(int i = 0; i < walls.size(); i++){
+            walls.get(i).timerStep();
+            if(walls.get(i).getLifetime() == 0){
+                walls.remove(i);
+                i--;
+            }
         }
     }
 
@@ -73,7 +83,7 @@ public class Model {
 
             if(possible){
                 leftWallLength -= Vector2.dst(tempStart.x,tempStart.y,x,y);
-                walls.add(new TempWall(angle-Math.PI, tempPolygon, 500));
+                walls.add(new TempWall(angle-Math.PI, tempPolygon, WALL_LIFETIME));
             }
         }
         tempPolygon = null;
