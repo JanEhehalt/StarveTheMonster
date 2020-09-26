@@ -12,13 +12,22 @@ import com.trs.game.view.Text;
 
 public class EndScreen extends Screen {
 
-    public EndScreen(int GAME_WORLD_WIDTH, int GAME_WORLD_HEIGHT){
+    boolean lost;
+
+    public EndScreen(int GAME_WORLD_WIDTH, int GAME_WORLD_HEIGHT, boolean lost){
         super(GAME_WORLD_WIDTH, GAME_WORLD_HEIGHT, 2);
+        this.lost = lost;
+
+        if(lost)
+            texts.add(new Text(GAME_WORLD_WIDTH/2, (int)((float)GAME_WORLD_HEIGHT * 0.85f), "The monster ate too many doods!", Color.BLACK, 3, 0,0));
+        else
+            texts.add(new Text(GAME_WORLD_WIDTH/2, (int)((float)GAME_WORLD_HEIGHT * 0.85f), "You successfully starved the Monster!", Color.BLACK, 3, 0,0));
+
         texts.add(new Text(GAME_WORLD_WIDTH/2, GAME_WORLD_HEIGHT/2, "click to restart...", Color.BLACK, 2, GAME_WORLD_HEIGHT/2 - 30,GAME_WORLD_HEIGHT/2 + 30));
 
         buttons.add(new Button(-1,250,100,240,50,"Difficulty",Color.BLACK,Color.WHITE));
         buttons.add(new Button(3,500,100,210,50,"Easy",Color.DARK_GRAY,Color.WHITE));
-        buttons.add(new Button(4,710,100,210,50,"Medium",Color.GRAY,Color.WHITE));
+        buttons.add(new Button(4,710,100,210,50,"Medium",Color.GRAY,Color.BLUE));
         buttons.add(new Button(5,920,100,210,50,"Hard",Color.DARK_GRAY,Color.WHITE));
         buttons.add(new Button(6,1130,100,210,50,"Impossible",Color.GRAY,Color.WHITE));
     }

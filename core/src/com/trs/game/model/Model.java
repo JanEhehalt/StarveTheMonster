@@ -19,6 +19,9 @@ public class Model {
     private boolean drawing = false;
     private int currentLength;
 
+    private boolean toReset;
+    private boolean ending;
+
     private int difficulty;
 
     private int leftWallLength = 5000;
@@ -47,10 +50,10 @@ public class Model {
                 walls.remove(i);
                 i--;
             }
-
-            if (monster.getIsDead()) {
-                // TODO: Tod implementieren
-            }
+        }
+        if (monster.getIsDead()) {
+            toReset = true;
+            ending = true; // Monster win - Player lost
         }
 
         // Generation of new projectiles
@@ -159,5 +162,13 @@ public class Model {
 
     public int getCurrentLength() {
         return currentLength;
+    }
+
+    public boolean isToReset() {
+        return toReset;
+    }
+
+    public boolean getEnding() {
+        return ending;
     }
 }

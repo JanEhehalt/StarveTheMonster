@@ -33,7 +33,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 
 	final int WALL_LIFETIME = 75;
 
-	int difficulty = 0;
+	int difficulty = 1;
 
 	SpriteBatch batch;
 	ShapeRenderer renderer;
@@ -62,6 +62,9 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 				screen.timer();
 				if(screen.getId() == 1) {
 					model.timerStep();
+					if(model.isToReset()){
+						screen = new EndScreen(GAME_WORLD_WIDTH,GAME_WORLD_HEIGHT,model.getEnding());
+					}
 				}
 			}
 		}, 0, 0.05f);
@@ -131,7 +134,9 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 			// write left Length
 			batch.begin();
 			font.setColor(Color.BLACK);
-			font.draw(batch, ""+model.getLeftWallLength(), 1500f,800f);
+			font.getData().setScale(2);
+			font.draw(batch, "Wall pieces: "+model.getLeftWallLength(), 1170f,875f);
+			font.getData().setScale(1);
 			batch.end();
 			// DRAW MONSTER
 			model.getMonster().drawMonster(renderer,polygonSpriteBatch);
@@ -201,13 +206,15 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 		switch(keycode){
 			case 0: //GOTO MAINMENU
 				screen = new MainMenuScreen(GAME_WORLD_WIDTH,GAME_WORLD_HEIGHT);
+				difficulty = 1;
 				break;
 			case 1: //NEW GAMESCREEN
 				model = new Model(difficulty);
 				screen = new GameScreen(GAME_WORLD_WIDTH,GAME_WORLD_HEIGHT);
 				break;
 			case 2: //GOTO ENDSCREEN
-				screen = new EndScreen(GAME_WORLD_WIDTH,GAME_WORLD_HEIGHT);
+				screen = new EndScreen(GAME_WORLD_WIDTH,GAME_WORLD_HEIGHT, true);
+				difficulty = 1;
 				break;
 			case 3:
 				difficulty = 1;
