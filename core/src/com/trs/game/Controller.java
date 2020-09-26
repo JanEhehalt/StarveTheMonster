@@ -1,7 +1,6 @@
 package com.trs.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
@@ -17,13 +16,11 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Polygon;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Timer;
 import com.trs.game.model.Model;
 import com.trs.game.model.Projectile;
 import com.trs.game.model.Wall;
 import com.trs.game.view.View;
-import com.trs.game.view.Button;
 import com.trs.game.view.Screen;
 import com.trs.game.view.Screens.EndScreen;
 import com.trs.game.view.Screens.GameScreen;
@@ -35,6 +32,8 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 	final int GAME_WORLD_HEIGHT = 900;
 
 	final int WALL_LIFETIME = 75;
+
+	int difficulty = 0;
 
 	SpriteBatch batch;
 	ShapeRenderer renderer;
@@ -53,7 +52,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 		batch = new SpriteBatch();
 		renderer = new ShapeRenderer();
 		polygonSpriteBatch = new PolygonSpriteBatch();
-		model = new Model();
+		model = new Model(difficulty);
 		view = new View();
 
 		wallTimer = new Timer();
@@ -204,11 +203,23 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 				screen = new MainMenuScreen(GAME_WORLD_WIDTH,GAME_WORLD_HEIGHT);
 				break;
 			case 1: //GOTO GAMESCREEN
-				model = new Model();
+				model = new Model(difficulty);
 				screen = new GameScreen(GAME_WORLD_WIDTH,GAME_WORLD_HEIGHT);
 				break;
 			case 2: //GOTO ENDSCREEN
 				screen = new EndScreen(GAME_WORLD_WIDTH,GAME_WORLD_HEIGHT);
+				break;
+			case 3:
+				difficulty = 1;
+				break;
+			case 4:
+				difficulty = 2;
+				break;
+			case 5:
+				difficulty = 3;
+				break;
+			case 6:
+				difficulty = 4;
 				break;
 		}
 	}
