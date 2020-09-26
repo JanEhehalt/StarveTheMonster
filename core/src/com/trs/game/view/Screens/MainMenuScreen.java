@@ -1,5 +1,6 @@
 package com.trs.game.view.Screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -12,8 +13,13 @@ import com.trs.game.view.Text;
 
 public class MainMenuScreen extends Screen {
 
-    public MainMenuScreen(int GAME_WORLD_WIDTH, int GAME_WORLD_HEIGHT){
-        super(GAME_WORLD_WIDTH, GAME_WORLD_HEIGHT, 0);
+    public MainMenuScreen(int GAME_WORLD_WIDTH, int GAME_WORLD_HEIGHT, float volume){
+        super(GAME_WORLD_WIDTH, GAME_WORLD_HEIGHT, 0, volume);
+
+        music = Gdx.audio.newMusic(Gdx.files.internal("menu.ogg"));
+        music.setVolume(volume);
+        music.setLooping(true);
+        music.play();
 
         texts.add(new Text(GAME_WORLD_WIDTH/2, (int)((float)GAME_WORLD_HEIGHT * 0.85f), "Starve the Monster", Color.BLACK, 5, 0,0));
         texts.add(new Text(GAME_WORLD_WIDTH/2, GAME_WORLD_HEIGHT/2, "click to start...", Color.BLACK, 2, GAME_WORLD_HEIGHT/2 - 30,GAME_WORLD_HEIGHT/2 + 30));
@@ -62,6 +68,6 @@ public class MainMenuScreen extends Screen {
 
     @Override
     public void dispose() {
-
+        music.dispose();
     }
 }

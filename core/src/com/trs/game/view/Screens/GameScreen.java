@@ -1,5 +1,6 @@
 package com.trs.game.view.Screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -12,8 +13,12 @@ import com.trs.game.view.Text;
 
 public class GameScreen extends Screen {
 
-    public GameScreen(int GAME_WORLD_WIDTH, int GAME_WORLD_HEIGHT){
-        super(GAME_WORLD_WIDTH, GAME_WORLD_HEIGHT, 1);
+    public GameScreen(int GAME_WORLD_WIDTH, int GAME_WORLD_HEIGHT, float volume){
+        super(GAME_WORLD_WIDTH, GAME_WORLD_HEIGHT, 1, volume);
+        music = Gdx.audio.newMusic(Gdx.files.internal("game.ogg"));
+        music.setVolume(volume);
+        music.setLooping(true);
+        music.play();
     }
 
     @Override
@@ -46,6 +51,6 @@ public class GameScreen extends Screen {
 
     @Override
     public void dispose() {
-
+        music.dispose();
     }
 }

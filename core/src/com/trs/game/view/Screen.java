@@ -1,5 +1,6 @@
 package com.trs.game.view;
 
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -15,12 +16,16 @@ public abstract class Screen {
     public ArrayList<Button> buttons;
     public ArrayList<Text> texts;
 
-    public Screen(int SCREEN_WIDTH, int SCREEN_HEIGHT, int id){
+    protected Music music;
+    protected float volume;
+
+    public Screen(int SCREEN_WIDTH, int SCREEN_HEIGHT, int id, float volume){
         buttons = new ArrayList();
         texts = new ArrayList();
         this.SCREEN_WIDTH = SCREEN_WIDTH;
         this.SCREEN_HEIGHT =SCREEN_HEIGHT;
         this.id = id;
+        this.volume = volume;
     }
 
     abstract public void timer();
@@ -38,5 +43,22 @@ public abstract class Screen {
 
     public int getHeight() {
         return SCREEN_HEIGHT;
+    }
+
+    public void startMusic(){
+        music.play();
+    }
+
+    public void stopMusic(){
+        music.stop();
+    }
+
+    public void setVolume(float volume){
+        this.volume = volume;
+        music.setVolume(volume);
+    }
+
+    public float getVolume(){
+        return this.volume;
     }
 }

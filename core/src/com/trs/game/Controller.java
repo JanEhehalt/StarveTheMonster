@@ -3,6 +3,7 @@ package com.trs.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -45,6 +46,8 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 	Texture textureSolid;
 	Pixmap pix;
 
+	float volume;
+
 	Screen screen;
 	
 	@Override
@@ -55,6 +58,8 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 		model = new Model(difficulty);
 		view = new View();
 
+		volume = 0.5f;
+
 		wallTimer = new Timer();
 		wallTimer.scheduleTask(new Timer.Task() {
 			@Override
@@ -63,7 +68,8 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 				if(screen.getId() == 1) {
 					model.timerStep();
 					if(model.isToReset()){
-						screen = new EndScreen(GAME_WORLD_WIDTH,GAME_WORLD_HEIGHT,model.getEnding());
+						screen.dispose();
+						screen = new EndScreen(GAME_WORLD_WIDTH,GAME_WORLD_HEIGHT,model.getEnding(), volume);
 					}
 				}
 			}
@@ -83,7 +89,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 		//POLYGON STUFF
 
 
-		screen = new MainMenuScreen(GAME_WORLD_WIDTH,GAME_WORLD_HEIGHT);
+		screen = new MainMenuScreen(GAME_WORLD_WIDTH,GAME_WORLD_HEIGHT, volume);
 
 		Gdx.input.setInputProcessor(this);
 	}
@@ -205,15 +211,18 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 	public void ManageButtonEvent(int keycode){
 		switch(keycode){
 			case 0: //GOTO MAINMENU
-				screen = new MainMenuScreen(GAME_WORLD_WIDTH,GAME_WORLD_HEIGHT);
+				screen.dispose();
+				screen = new MainMenuScreen(GAME_WORLD_WIDTH,GAME_WORLD_HEIGHT, volume);
 				difficulty = 1;
 				break;
 			case 1: //NEW GAMESCREEN
 				model = new Model(difficulty);
-				screen = new GameScreen(GAME_WORLD_WIDTH,GAME_WORLD_HEIGHT);
+				screen.dispose();
+				screen = new GameScreen(GAME_WORLD_WIDTH,GAME_WORLD_HEIGHT, volume);
 				break;
 			case 2: //GOTO ENDSCREEN
-				screen = new EndScreen(GAME_WORLD_WIDTH,GAME_WORLD_HEIGHT, true);
+				screen.dispose();
+				screen = new EndScreen(GAME_WORLD_WIDTH,GAME_WORLD_HEIGHT, true, volume);
 				difficulty = 1;
 				break;
 			case 3:

@@ -1,5 +1,6 @@
 package com.trs.game.view.Screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -14,9 +15,20 @@ public class EndScreen extends Screen {
 
     boolean lost;
 
-    public EndScreen(int GAME_WORLD_WIDTH, int GAME_WORLD_HEIGHT, boolean lost){
-        super(GAME_WORLD_WIDTH, GAME_WORLD_HEIGHT, 2);
+    public EndScreen(int GAME_WORLD_WIDTH, int GAME_WORLD_HEIGHT, boolean lost, float volume){
+        super(GAME_WORLD_WIDTH, GAME_WORLD_HEIGHT, 2, volume);
         this.lost = lost;
+
+        if(lost){
+            music = Gdx.audio.newMusic(Gdx.files.internal("lose.ogg"));
+        }
+        else{
+            music = Gdx.audio.newMusic(Gdx.files.internal("victory.mp3"));
+        }
+
+        music.setVolume(volume);
+        music.setLooping(true);
+        music.play();
 
         if(lost)
             texts.add(new Text(GAME_WORLD_WIDTH/2, (int)((float)GAME_WORLD_HEIGHT * 0.85f), "The monster ate too many doods!", Color.BLACK, 3, 0,0));
@@ -70,6 +82,6 @@ public class EndScreen extends Screen {
 
     @Override
     public void dispose() {
-
+        music.dispose();
     }
 }
