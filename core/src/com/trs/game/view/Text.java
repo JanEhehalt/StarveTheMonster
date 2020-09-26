@@ -41,13 +41,13 @@ public class Text {
     public void timer(){
         if(moving){
             if(movement){
-                setyPos(getyPos()+3);
+                setyPos(getyPos()+2);
                 if(getyPos() >= y2){
                     movement = false;
                 }
             }
             else if(!movement){
-                setyPos(getyPos()-3);
+                setyPos(getyPos()-2);
                 if(getyPos() <= y1){
                     movement = true;
                 }

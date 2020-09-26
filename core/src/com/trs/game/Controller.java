@@ -141,7 +141,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 
 				renderer.end();
 				batch.begin();
-				font.setColor(Color.BLACK);
+				font.setColor(Color.GRAY);
 				if(model.getCurrentLength()!=0)font.draw(batch, ""+model.getCurrentLength(), Gdx.input.getX()+10, GAME_WORLD_HEIGHT - Gdx.input.getY()+10);
 				batch.end();
 
@@ -156,7 +156,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 			font.draw(batch, ""+model.getLeftWallLength(), 1500f,800f);
 			batch.end();
 			// DRAW MONSTER
-			//model.getMonster().drawMonster(renderer,polygonSpriteBatch);
+			model.getMonster().drawMonster(renderer,polygonSpriteBatch);
 		}
 	}
 	
