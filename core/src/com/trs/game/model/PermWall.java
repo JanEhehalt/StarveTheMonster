@@ -23,7 +23,7 @@ public class PermWall implements Wall {
     public double getRotation() {
         float[] vertices = polygon.getVertices();
 
-        return Math.toDegrees(StaticMath.calculateAngle((int) vertices[0], (int) vertices[1], (int) vertices[6], (int) vertices[7]));
+        return StaticMath.calculateAngle((int) vertices[0], (int) vertices[1], (int) vertices[6], (int) vertices[7]);
     }
 
     @Override

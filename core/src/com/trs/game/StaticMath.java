@@ -43,11 +43,11 @@ public class StaticMath {
     public static Polygon createPolygon(int xPos, int yPos, double angle, double width, double length){
         float[] points = new float[8];
 
-        double phi = (Math.PI / 2) - Math.toRadians(angle);
+        double phi = (Math.PI / 2) - angle;
         double d = Math.sin(phi) * width;
         double e = Math.cos(phi) * width;
-        double f = Math.sin(Math.toRadians(angle)) * length;
-        double g = Math.cos(Math.toRadians(angle)) * length;
+        double f = Math.sin(angle) * length;
+        double g = Math.cos(angle) * length;
 
         points[0] = xPos;
         points[1] = yPos;

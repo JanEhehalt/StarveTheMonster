@@ -44,13 +44,13 @@ public class Model {
     public void adjustWall(int x, int y){
         if(drawing){
             double angle = StaticMath.calculateAngle(x,y,(int)tempStart.x,(int)tempStart.y);
-            tempPolygon = StaticMath.createPolygon((int)tempStart.x, (int)tempStart.y, Math.toDegrees(angle-Math.PI),10,Vector2.dst(tempStart.x,tempStart.y,x,y));
+            tempPolygon = StaticMath.createPolygon((int)tempStart.x, (int)tempStart.y, angle-Math.PI,10,Vector2.dst(tempStart.x,tempStart.y,x,y));
         }
     }
     public void finishWall(int x, int y){
         if(Vector2.dst(tempStart.x,tempStart.y,x,y) > 150) {
             double angle = StaticMath.calculateAngle(x,y,(int)tempStart.x,(int)tempStart.y);
-            tempPolygon = StaticMath.createPolygon((int)tempStart.x, (int)tempStart.y, Math.toDegrees(angle-Math.PI),10,Vector2.dst(tempStart.x,tempStart.y,x,y));
+            tempPolygon = StaticMath.createPolygon((int)tempStart.x, (int)tempStart.y, angle-Math.PI,10,Vector2.dst(tempStart.x,tempStart.y,x,y));
 
             boolean possible = true;
             if(Vector2.dst(tempStart.x,tempStart.y,x,y) > leftWallLength)
@@ -71,7 +71,7 @@ public class Model {
 
             if(possible){
                 leftWallLength -= Vector2.dst(tempStart.x,tempStart.y,x,y);
-                walls.add(new TempWall(Math.toDegrees(angle-Math.PI), tempPolygon, 500));
+                walls.add(new TempWall(angle-Math.PI, tempPolygon, 500));
             }
         }
         tempPolygon = null;

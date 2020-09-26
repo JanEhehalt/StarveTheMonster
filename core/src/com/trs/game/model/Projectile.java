@@ -72,7 +72,7 @@ public class Projectile {
         double alpha = Math.atan(movementY/movementX);
         double delta = (Math.PI / 2) - collisionAngle;
         double beta = +((Math.PI / 2) - alpha - delta);
-        double phi = beta + Math.toRadians(wall.getRotation());
+        double phi = beta + wall.getRotation();
 
         movementX = Math.cos(phi) * SPEED;
         movementY = Math.sin(phi) * SPEED;
