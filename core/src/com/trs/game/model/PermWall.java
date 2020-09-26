@@ -1,6 +1,7 @@
 package com.trs.game.model;
 
 import com.badlogic.gdx.math.Polygon;
+import com.trs.game.StaticMath;
 
 public class PermWall implements Wall {
 
@@ -18,7 +19,9 @@ public class PermWall implements Wall {
     }
 
     public double getRotation() {
-        return rotation;
+        float[] vertices = polygon.getVertices();
+
+        return Math.toDegrees(StaticMath.calculateAngle((int) vertices[0], (int) vertices[1], (int) vertices[6], (int) vertices[7]));
     }
 
     public void setRotation(double rotation) {

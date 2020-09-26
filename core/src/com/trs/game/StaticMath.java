@@ -61,4 +61,46 @@ public class StaticMath {
         return new Polygon(points);
     }
 
+    public static Polygon[] createCollisionPolygons(Polygon wall){
+        Polygon[] collisionPolygons = new Polygon[4];
+
+        // first line of polygon
+        float[] newVertices = wall.getVertices();
+
+        // last four coordinates are all incremented by one, so the polygon is 1 width polygon
+        for(int i = 4; i < 8; i++){
+            newVertices[i] = newVertices[i-4] + 1;
+        }
+        collisionPolygons[0] = new Polygon(newVertices);
+
+        // third line of polygon
+        newVertices = wall.getVertices();
+
+        // last four coordinates are all decremented by one, so the polygon is 1 width polygon
+        for(int i = 4; i < 8; i++){
+            newVertices[i-4] = newVertices[i] - 1;
+        }
+        collisionPolygons[2] = new Polygon(newVertices);
+
+        // second line of polygon
+        newVertices = wall.getVertices();
+
+        newVertices[0] = newVertices[2];
+        newVertices[1] = newVertices[3] + 1;
+        newVertices[6] = newVertices[4];
+        newVertices[7] = newVertices[5] + 1;
+        collisionPolygons[1] = new Polygon(newVertices);
+
+        // fourth line of polygon
+        newVertices = wall.getVertices();
+
+        newVertices[2] = newVertices[0];
+        newVertices[3] = newVertices[1] - 1;
+        newVertices[4] = newVertices[6];
+        newVertices[5] = newVertices[7] - 1;
+        collisionPolygons[3] = new Polygon(newVertices);
+
+        return collisionPolygons;
+    }
+
 }

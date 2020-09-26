@@ -48,10 +48,6 @@ public class Projectile {
     private void checkCollision(ArrayList<Wall> walls){
         for(Wall wall : walls){
             if(Intersector.overlapConvexPolygons(polygon, wall.getPolygon())){
-
-                setxPos((int) (getxPos() - this.movementX));
-                setyPos((int) (getyPos() - this.movementY));
-
                 collision(wall);
                 break;
             }
@@ -61,8 +57,22 @@ public class Projectile {
     private void collision(Wall wall){
         System.out.println("Collision");
 
+        Polygon[] collisionPolygons = StaticMath.createCollisionPolygons(wall.getPolygon());
+
+        double collisionAngle = 0;
+        for(Polygon collision : collisionPolygons){
+            if(Intersector.overlapConvexPolygons(polygon, collision)){
+                float[] vertices = collision.getVertices();
+                collisionAngle = StaticMath.calculateAngle((int) vertices[0], (int) vertices[1], (int) vertices[6], (int) vertices[7]);
+                break;
+            }
+        }
+
+        setxPos((int) (getxPos() - this.movementX));
+        setyPos((int) (getyPos() - this.movementY));
+
         double alpha = Math.atan(movementY/movementX);
-        double delta = (Math.PI / 2) - Math.toRadians(wall.getRotation());
+        double delta = (Math.PI / 2) - collisionAngle;
         double beta = +((Math.PI / 2) - alpha - delta);
         double phi = beta + Math.toRadians(wall.getRotation());
 
