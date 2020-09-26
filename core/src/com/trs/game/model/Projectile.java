@@ -58,10 +58,20 @@ public class Projectile {
         System.out.println("Collision");
 
         double collisionAngle = 0;
-        for(Polygon collision : wall.getCollisionPolygons()){
+        for(int i = 0; i < 4; i++){
+
+            Polygon collision = wall.getCollisionPolygons()[i];
             if(Intersector.overlapConvexPolygons(polygon, collision)){
                 float[] vertices = collision.getVertices();
-                collisionAngle = StaticMath.calculateAngle((int) vertices[0], (int) vertices[1], (int) vertices[2], (int) vertices[3]);
+                switch (i){
+                    case 0: collisionAngle = StaticMath.calculateAngle((int) vertices[0], (int) vertices[1], (int) vertices[2], (int) vertices[3]);
+                            break;
+                    case 1: collisionAngle = StaticMath.calculateAngle((int) vertices[2], (int) vertices[3], (int) vertices[4], (int) vertices[5]);
+                            break;
+                    case 2: collisionAngle = StaticMath.calculateAngle((int) vertices[0], (int) vertices[1], (int) vertices[2], (int) vertices[3]);
+                            break;
+                    case 3: collisionAngle = StaticMath.calculateAngle((int) vertices[2], (int) vertices[3], (int) vertices[4], (int) vertices[5]);
+                }
                 break;
             }
         }
