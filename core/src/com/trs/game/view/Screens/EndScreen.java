@@ -37,16 +37,23 @@ public class EndScreen extends Screen {
 
         texts.add(new Text(GAME_WORLD_WIDTH/2, GAME_WORLD_HEIGHT/2, "click to restart...", Color.BLACK, 2, GAME_WORLD_HEIGHT/2 - 30,GAME_WORLD_HEIGHT/2 + 30));
 
-        buttons.add(new Button(-1,250,100,240,50,"Difficulty",Color.BLACK,Color.WHITE));
-        buttons.add(new Button(3,500,100,210,50,"Easy",Color.DARK_GRAY,Color.WHITE));
-        buttons.add(new Button(4,710,100,210,50,"Medium",Color.GRAY,Color.BLUE));
-        buttons.add(new Button(5,920,100,210,50,"Hard",Color.DARK_GRAY,Color.WHITE));
-        buttons.add(new Button(6,1130,100,210,50,"Impossible",Color.GRAY,Color.WHITE));
+        buttons.add(new Button(-1,50,100,240,50,"Difficulty",Color.BLACK,Color.WHITE));
+        buttons.add(new Button(3,300,100,210,50,"Easy",Color.DARK_GRAY,Color.WHITE));
+        buttons.add(new Button(4,510,100,210,50,"Medium",Color.GRAY,Color.BLUE));
+        buttons.add(new Button(5,300,50,210,50,"Hard",Color.GRAY,Color.WHITE));
+        buttons.add(new Button(6,510,50,210,50,"Impossible",Color.DARK_GRAY,Color.WHITE));
 
         texts.add(new Text(50,845, "Volume:", Color.BLACK,1,0,0));
 
         buttons.add(new Button(7,100,830,35,35,"-",Color.DARK_GRAY,Color.WHITE));
         buttons.add(new Button(8,140,830,35,35,"+",Color.DARK_GRAY,Color.WHITE));
+
+
+        texts.add(new Text(1300, 220, "Credits:", Color.BLACK, 1.5, 0,0));
+        texts.add(new Text(1300, 180, "MainMenu music by pbondoer@opengameart.org", Color.BLACK, 1, 0,0));
+        texts.add(new Text(1300, 150, "Ingame music by Jan125@opengameart.org", Color.BLACK, 1, 0,0));
+        texts.add(new Text(1300, 120, "Victory tune by Macto@opengameart.org", Color.BLACK, 1, 0,0));
+        texts.add(new Text(1300, 90, "Lose music by Jan125@opengameart.org", Color.BLACK, 1, 0,0));
     }
 
     @Override

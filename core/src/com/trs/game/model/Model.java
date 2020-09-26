@@ -29,7 +29,7 @@ public class Model {
     public Model(int difficulty){
         this.difficulty = difficulty;
 
-        monster = new Monster(250,150);
+        monster = new Monster(800,450);
         walls = new ArrayList<>();
         projectiles = new ArrayList<>();
     }
