@@ -153,6 +153,9 @@ public class Controller extends ApplicationAdapter implements InputProcessor {
 	public void dispose () {
 		batch.dispose();
 		renderer.dispose();
+		screen.dispose();
+		polygonSpriteBatch.dispose();
+		font.dispose();
 	}
 
 	public void timerStart(){
