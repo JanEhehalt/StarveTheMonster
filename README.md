@@ -4,7 +4,7 @@
 
 ## General Information
 
-"Protect the Monster" has been created for the [NoImage Gamejam](https://itch.io/jam/no-image-jam). It was developed by @JonathanHager and @GammelJAN. The main goal of this game is to prevent the monster
+"StarveTheMonster" has been created for the [NoImage Gamejam](https://itch.io/jam/no-image-jam). It was developed by @JonathanHager and @GammelJAN. The main goal of this game is to prevent the monster
 from eating the humans that run towards it. The game was written with the Java game library [LibGDX](https://libgdx.badlogicgames.com/).
 
 ## Installation
